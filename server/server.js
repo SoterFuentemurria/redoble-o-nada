@@ -11,9 +11,14 @@ const path = require('path')
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 const { on } = require('events');
+const PORT = process.env.PORT || 5000
 
 // ruta para servir la build de producción
 app.use(express.static(path.join(__dirname, '../build')))
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+});
 
 // Inicialización del servidor
 const httpServer = createServer(app);
@@ -302,5 +307,5 @@ io.on("connection", (socket) => {
 
 
 
-httpServer.listen(5000);
+httpServer.listen(PORT);
 
