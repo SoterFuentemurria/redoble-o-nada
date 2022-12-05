@@ -582,7 +582,7 @@ class Host extends React.Component {
     return(Math.round(((Math.random()+ 0.2) * 10000)) + Math.round(((Math.random() + 0.3) * 5000)))
   }
   componentDidMount(){
-    if (ronda === 1){
+  
     this.timerID = setInterval(()=> this.tick(), 1000)
 
     this.cambioID1 = setInterval(()=> this.cambio1(), this.intervalo1)
@@ -592,7 +592,7 @@ class Host extends React.Component {
     this.cambioID5 = setInterval(()=> this.cambio5(), this.intervalo5)
     this.cambioID6 = setInterval(()=> this.cambio6(), this.intervalo6)
   
-    console.log(this.cambioID1)}
+    console.log(this.cambioID1)
   }
 
 
