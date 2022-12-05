@@ -686,9 +686,11 @@ class Host extends React.Component {
       cambioNota = 1
     } else {cambioNota = 0}
     this[n] = {orden: 0, caos: 0, pOrden: [], pCaos: [], uOrden: [], uCaos: [], notaGanadora: notaG, cambio: cambioNota }
+    console.log(this[n])
   }
 
   cambio1() {
+    console.log("cambio1")
     this.mecanismoCambio(1)
     if (this.v1.cambio === 1) {
       this.osc1.frequency.rampTo(this.v1.notaGanadora,Math.random()* 10)
@@ -701,6 +703,7 @@ class Host extends React.Component {
   }
 
   cambio2() {
+    console.log("cambio2")
     this.mecanismoCambio(2)
     if (this.v2.cambio === 1) {
       this.osc2.frequency.rampTo(this.v2.notaGanadora,Math.random()* 10)
@@ -713,6 +716,7 @@ class Host extends React.Component {
   }
 
   cambio3() {
+    console.log("cambio3")
     this.mecanismoCambio(3)
     if (this.v3.cambio === 1) {
       this.osc3.frequency.rampTo(this.v3.notaGanadora,Math.random()* 10)
@@ -725,6 +729,7 @@ class Host extends React.Component {
   }
 
   cambio4() {
+    console.log("cambio4")
     this.mecanismoCambio(4)
     if (this.v4.cambio === 1) {
       this.osc4.frequency.rampTo(this.v4.notaGanadora,Math.random()* 10)
@@ -737,6 +742,7 @@ class Host extends React.Component {
   }
 
   cambio5() {
+    console.log("cambio5")
     this.mecanismoCambio(5)
     if (this.v5.cambio === 1) {
       this.osc5.frequency.rampTo(this.v5.notaGanadora,Math.random()* 10)
@@ -749,6 +755,7 @@ class Host extends React.Component {
   }
 
   cambio6() {
+    console.log("cambio6")
     this.mecanismoCambio(6)
     if (this.v6.cambio === 1) {
       this.osc6.frequency.rampTo(this.v6.notaGanadora,Math.random()* 10)
