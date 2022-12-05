@@ -590,7 +590,9 @@ class Host extends React.Component {
     this.cambioID3 = setInterval(()=> this.cambio3(), this.intervalo3)
     this.cambioID4 = setInterval(()=> this.cambio4(), this.intervalo4)
     this.cambioID5 = setInterval(()=> this.cambio5(), this.intervalo5)
-    this.cambioID6 = setInterval(()=> this.cambio6(), this.intervalo6)}
+    this.cambioID6 = setInterval(()=> this.cambio6(), this.intervalo6)
+  
+    console.log(this.cambioID1)}
   }
 
 
