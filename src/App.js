@@ -16,7 +16,7 @@ import "./App.css"
 import * as Tone from 'tone'
 
 // Inicializamos el socket
-const URL = "http://localhost:5000";
+const URL = "https://redoble-o-nada.herokuapp.com";
 const socket = io(URL, { autoConnect: false });
 
 // el socket, para cada evento, postea en la consola el evento y los argumentos
