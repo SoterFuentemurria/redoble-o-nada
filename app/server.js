@@ -25,6 +25,7 @@ const httpServer = createServer(app);
 const io = new Server(httpServer, {
     cors: {
         origin: "https://redoble-o-nada.herokuapp.com/",
+        //origin: "*",
     },
 });
 

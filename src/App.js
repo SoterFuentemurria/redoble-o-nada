@@ -17,6 +17,7 @@ import * as Tone from 'tone'
 
 // Inicializamos el socket
 const URL = "https://redoble-o-nada.herokuapp.com";
+//const URL = "http://localhost:5000/";
 const socket = io(URL, { autoConnect: false });
 
 // el socket, para cada evento, postea en la consola el evento y los argumentos
@@ -540,6 +541,9 @@ class Host extends React.Component {
     this.intervalo5 = this.formula()
     this.intervalo6 = this.formula()
 
+    
+
+
     this.v1 = {orden: 0, caos: 0, pOrden: ["C4"], pCaos: ["C4"], uOrden: [], uCaos: [], notaGanadora: "C4", cambio: 0}
     this.v2 = {orden: 0, caos: 0, pOrden: ["C4"], pCaos: ["C4"], uOrden: [], uCaos: [], notaGanadora: "C4", cambio : 0}
     this.v3 = {orden: 0, caos: 0, pOrden: ["C4"], pCaos: ["C4"], uOrden: [], uCaos: [], notaGanadora: "C4", cambio : 0}
@@ -583,21 +587,25 @@ class Host extends React.Component {
   }
   componentDidMount(){
   
+    if (ronda === 1){
     this.timerID = setInterval(()=> this.tick(), 1000)
 
-    this.cambioID1 = setInterval(()=> this.cambio1(), this.intervalo1)
-    this.cambioID2 = setInterval(()=> this.cambio2(), this.intervalo2)
-    this.cambioID3 = setInterval(()=> this.cambio3(), this.intervalo3)
-    this.cambioID4 = setInterval(()=> this.cambio4(), this.intervalo4)
-    this.cambioID5 = setInterval(()=> this.cambio5(), this.intervalo5)
-    this.cambioID6 = setInterval(()=> this.cambio6(), this.intervalo6)
-  
-    console.log(this.cambioID1)
-  }
+    console.log("ID1 por tick", this.cambioID1)
 
+    this.cambioID1 = setTimeout(()=> this.cambio1(), this.intervalo1)
+    this.cambioID2 = setTimeout(()=> this.cambio2(), this.intervalo2)
+    this.cambioID3 = setTimeout(()=> this.cambio3(), this.intervalo3)
+    this.cambioID4 = setTimeout(()=> this.cambio4(), this.intervalo4)
+    this.cambioID5 = setTimeout(()=> this.cambio5(), this.intervalo5)
+    this.cambioID6 = setTimeout(()=> this.cambio6(), this.intervalo6)
+  }
+  }
+  
+  
 
   componentWillUnmount(){
     clearInterval(this.timerID)
+
   }
 
   tick(){
@@ -700,8 +708,8 @@ class Host extends React.Component {
       let array = [1, this.v1.notaGanadora, this.state.tiempo]
       estructura.push(array)
     }
-    clearInterval(this.cambioID1)
     this.intervalo1 = this.formula()
+    this.cambioID1 = setTimeout(()=> this.cambio1(), this.intervalo1)
   }
 
   cambio2() {
@@ -713,8 +721,8 @@ class Host extends React.Component {
       let array = [2, this.v2.notaGanadora, this.state.tiempo]
       estructura.push(array)
     }
-    clearInterval(this.cambioID2)
     this.intervalo2 = this.formula()
+    this.cambioID2 = setTimeout(()=> this.cambio2(), this.intervalo2)
   }
 
   cambio3() {
@@ -726,8 +734,8 @@ class Host extends React.Component {
       let array = [3, this.v3.notaGanadora, this.state.tiempo]
       estructura.push(array)
     }
-    clearInterval(this.cambioID3)
     this.intervalo3 = this.formula()
+    this.cambioID3 = setTimeout(()=> this.cambio3(), this.intervalo3)
   }
 
   cambio4() {
@@ -739,8 +747,8 @@ class Host extends React.Component {
       let array = [4, this.v4.notaGanadora, this.state.tiempo]
       estructura.push(array)
     }
-    clearInterval(this.cambioID4)
     this.intervalo4 = this.formula()
+    this.cambioID4 = setTimeout(()=> this.cambio4(), this.intervalo4)
   }
 
   cambio5() {
@@ -752,8 +760,8 @@ class Host extends React.Component {
       let array = [5, this.v5.notaGanadora, this.state.tiempo]
       estructura.push(array)
     }
-    clearInterval(this.cambioID5)
     this.intervalo5 = this.formula()
+    this.cambioID5 = setTimeout(()=> this.cambio5(), this.intervalo5)
   }
 
   cambio6() {
@@ -765,8 +773,8 @@ class Host extends React.Component {
       let array = [6, this.v6.notaGanadora, this.state.tiempo]
       estructura.push(array)
     }
-    clearInterval(this.cambioID6)
     this.intervalo6 = this.formula()
+    this.cambioID6 = setTimeout(()=> this.cambio6(), this.intervalo6)
   }
 
   botonAudio(){
