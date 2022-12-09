@@ -11,6 +11,7 @@
 
 // Importamos los modulos
 import React from 'react'
+import { useEffect } from 'react';
 import { io } from "socket.io-client";
 import "./App.css"
 import * as Tone from 'tone'
