@@ -17,10 +17,7 @@ import * as Tone from 'tone'
 
 import icon from './images/favicon.ico';
 
-useEffect(() => {
-    const favicon = document.getElementById('favicon');
-    favicon.setAttribute('href', icon);
-}, []);
+
 
 // Inicializamos el socket
 const URL = "https://redoble-o-nada.herokuapp.com";
@@ -999,6 +996,7 @@ class Juego extends React.Component {
     this.reinicio = this.reinicio.bind(this)
     
   }
+
   reinicio() {
     juegoIniciado = false
   }
@@ -1022,7 +1020,7 @@ class Juego extends React.Component {
       console.log(this.state.juegoIniciado)
     })
     if (this.state.fin === true) {
-      this.resetID = setTimeout(()=> reinicio(), 30000)
+      this.resetID = setTimeout(()=> this.reinicio(), 30000)
       ronda = 0
       audioContext = false
       return(
@@ -1049,6 +1047,10 @@ class Juego extends React.Component {
 
 // Función principal
 function App() {
+  useEffect(() => {
+    const favicon = document.getElementById('favicon');
+    favicon.setAttribute('href', icon);
+}, []);
   return(<Juego/>)
 }
 
