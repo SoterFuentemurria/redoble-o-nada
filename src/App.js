@@ -16,8 +16,8 @@ import "./App.css"
 import * as Tone from 'tone'
 
 // Inicializamos el socket
-const URL = "https://redoble-o-nada.herokuapp.com";
-//const URL = "http://localhost:5000/";
+//const URL = "https://redoble-o-nada.herokuapp.com";
+const URL = "http://localhost:5000/";
 const socket = io(URL, { autoConnect: false });
 
 // el socket, para cada evento, postea en la consola el evento y los argumentos
@@ -69,7 +69,8 @@ class LoginControl extends React.Component {
     if (userNameAlreadyPicked === false) {
     return (
       <div>
-          <h1 id="tituloJuego">Redoble o nada</h1>
+        <div id= "divTitulo"><h1 id="tituloJuego">Redoble o Nada</h1></div>
+          
       <div id="flexForm">
       
       <form  id= "formUsuario" onSubmit={this.handleSubmit}>        <label id="etiquetaForm">
@@ -126,14 +127,41 @@ class JugadoresLobby extends React.Component{
 class HostLobby extends React.Component {
   constructor(props){
     super(props)
-    this.state = {juegoIniciado: false, equipoCaos: [], equipoOrden: []}
+    this.state = {juegoIniciado: false, equipoCaos: [], equipoOrden: [], cuentaActivada: false, cuenta: 10}
     this.handleClick = this.handleClick.bind(this);
+    this.tick = this.tick.bind(this)
   }
 
   // Evento de clickar en el botón. Inicia el juego en el server
-  handleClick(event) {socket.emit("iniciar")
-  event.preventDefault()}
+  handleClick(event) {
+    this.setState({cuentaActivada:true})
+    this.timerID = setInterval(()=> this.tick(), 1000)
+    event.preventDefault()
+  }
 
+ 
+  tick(){
+    let nextTick = this.state.cuenta - 1
+    this.setState({cuenta: nextTick})
+    if (this.state.cuenta % 2 === 0) {
+      this.displaycuenta = <h1 id = "cuentaAtras">{this.state.cuenta}</h1>
+    } else {
+      this.displaycuenta = <h1 id = "cuentaAtras2">{this.state.cuenta}</h1>
+    }
+    
+    if (this.state.cuenta === 1){
+      socket.emit("iniciar")
+      if (audioContext === false) {
+        console.log("contextoAudio")
+        new Tone.Context()
+        
+        audioContext = true
+      }
+    }
+  }
+  componentWillUnmount() {
+    clearInterval(this.timerID)
+  }
   
 
 
@@ -152,31 +180,54 @@ class HostLobby extends React.Component {
 
     const listaOrden = []
     const listaCaos = []
-    this.state.equipoCaos.forEach((element) => {listaCaos.push(<p>{element}</p>)})
-    this.state.equipoOrden.forEach((element) => {listaOrden.push(<p>{element}</p>)})
+    this.state.equipoCaos.forEach((element) => {listaCaos.push(<p class= "pcaos" >{element}</p>)})
+    this.state.equipoOrden.forEach((element) => {listaOrden.push(<p class= "porden">{element}</p>)})
 
+    if (this.state.cuentaActivada === false) {
     return(
       <div>
         <h1>El juego comenzará en breve</h1>
-        <p>Podeis leer las normas del juego clickando en la interrogación</p>
-        <button onClick={this.handleClick}>Iniciar</button>
         <div id = "displayEquipos">
 
           <div id = "displayOrden">
-            <h2>Equipo Orden</h2>
-            <div>{listaOrden}</div>
+            <h2 id= "h2display">Equipo Orden</h2>
+            <div id= "listaOrden">{listaOrden}</div>
           </div>
-          <div id = "espacio"></div>
+          <div id = "espacio"><button id = "espacioInicio" onClick={this.handleClick}>Iniciar</button></div>
           <div id = "displayCaos">
-            <h2>Equipo Caos</h2>
-            <div>{listaCaos}</div>
+            <h2 id = "h2display">Equipo Caos</h2>
+            <div id= "listaCaos">{listaCaos}</div>
           </div>
+
+          
 
         </div>
         
         
       </div>
-    )
+    )} else {
+      return (
+        <div>
+          <h1>El juego comenzará en breve</h1>
+          <div id = "displayEquipos">
+  
+            <div id = "displayOrden">
+              <h2 id= "h2display">Equipo Orden</h2>
+              <div id= "listaOrden">{listaOrden}</div>
+            </div>
+            <div id = "espacio">{this.displaycuenta}</div>
+            <div id = "displayCaos">
+              <h2 id = "h2display">Equipo Caos</h2>
+              <div id= "listaCaos">{listaCaos}</div>
+            </div>
+  
+            
+  
+          </div>
+          
+          
+        </div>)
+    }
   }
 }
 
@@ -576,6 +627,13 @@ class Host extends React.Component {
     this.osc5.volume.value = -18
     this.osc6.volume.value = -18
 
+    this.osc1.start()
+      this.osc2.start()
+      this.osc3.start()
+      this.osc4.start()
+      this.osc5.start()
+      this.osc6.start()
+
    
 
   }
@@ -601,7 +659,7 @@ class Host extends React.Component {
   }
   }
   
-  
+
 
   componentWillUnmount(){
     clearInterval(this.timerID)
@@ -782,12 +840,7 @@ class Host extends React.Component {
     if (audioContext === false) {
       console.log("contextoAudio")
       new Tone.Context()
-      this.osc1.start()
-      this.osc2.start()
-      this.osc3.start()
-      this.osc4.start()
-      this.osc5.start()
-      this.osc6.start()
+      
       audioContext = true
     }
   }
@@ -834,20 +887,38 @@ class Host extends React.Component {
       }
       console.log("propuesta recibida", equipo, index, this[n].pOrden, this[n].pCaos)
     })
-
-    return(
-      <div>
-        <h1>Host</h1>
-        <h2>tiempo de juego: {this.state.tiempo}</h2>
-        <label> Audio
-        <input type="button" onClick={this.botonAudio}></input></label>
+    if((this.state.puntosCaos + this.state.puntosOrden)%2 === 0){
+      return(
         <div>
-          <h1>Puntos</h1>
-          <h2>Orden {this.state.puntosOrden}</h2>
-          <h2>Caos {this.state.puntosCaos}</h2>
+          
+          <div>
+            <div id= "espacioPuntosH"></div>
+            <div id= "tablaPuntos">
+            
+            <h1 id = "puntosOrden">{this.state.puntosOrden}</h1>
+        
+            <h1 id = "puntosCaos">{this.state.puntosCaos}</h1>
+            </div>
+          </div>
         </div>
-      </div>
-    )
+      )
+    } else {
+      return(
+        <div>
+          
+          <div>
+            <div id= "espacioPuntosH"></div>
+            <div id= "tablaPuntos">
+            
+            <h1 id = "puntosOrden2">{this.state.puntosOrden}</h1>
+        
+            <h1 id = "puntosCaos2">{this.state.puntosCaos}</h1>
+            </div>
+          </div>
+        </div>
+      )
+    }
+    
   }
 }
 
@@ -880,29 +951,30 @@ class Juez extends React.Component {
 
   votacion() {
     console.log("hola")
-    this.setState({botonOrden : <div><label>Orden<input type= "button" id='botonOrden' onClick={this.votoOrden}></input></label></div>})
-    this.setState({botonCaos : <div><label>Caos<input type= "button" id="botonCaos" onClick={this.votoCaos}></input></label></div>})
+    this.setState({botonOrden : <div id = "divJuezOrden"><h1 id='labelBotonOrden'>Orden</h1><input type= "button" id='botonOrden' onClick={this.votoOrden}></input></div>})
+    this.setState({botonCaos : <div id = "divJuezCaos"><input type= "button" id="botonCaos" onClick={this.votoCaos}></input><h1 id="labelBotonCaos">Caos</h1></div>})
   }
 
   finVotacion() {
     console.log("adios")
     this.setState({botonOrden: "", botonCaos: ""})
+    this.votosID = setTimeout(()=> this.votacion(), 1500)
   }
 
 
   componentDidMount(){
-    this.votosID = setInterval(()=> this.votacion(), 15000)
+    this.votosID = setTimeout(()=> this.votacion(), 15000)
   }
 
   componentWillUnmount() {
-    clearInterval(this.votosID)
+    clearTimeout(this.votosID)
   }
   
   render() {
 
 
     return(
-      <div>
+      <div id = "botonesJuez">
         {this.state.botonOrden}
         {this.state.botonCaos}
       </div>

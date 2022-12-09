@@ -1,64 +1,62 @@
+ /*
+Paleta de colores
+
+Rojo Caos #c50626
+Azul orden #0061aa
+Negro letras: #040404
+Blanco #f2edebff
+Naranjon #FFA400
+
+
+ */
+
 * {box-sizing: border-box;}
 
-body {
-	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-	background-size: 400% 400%;
-	animation: gradient 15s ease infinite;
-	height: 100vh;
+
+
+html, body{min-height:100%;}
+body{height:100vh;
+    background-color: #f2edebff;
 }
 
-@keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
+
 
 /*ORDENADOR*/
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 915px) {
 
-h1 { color: #111; font-family: 'Helvetica Neue', sans-serif; font-size: 10vh; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center; }
+h1 { color: #040404; font-family: 'Helvetica Neue', sans-serif; font-size: 10vh; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center; }
 
-h2 { color: #111; font-family: 'Open Sans', sans-serif; font-size: 8vh; font-weight: 300; line-height: 32px; margin: 0 0 72px; text-align: center; }
+h2 { color:#040404; font-family: 'Open Sans', sans-serif; font-size: 8vh; font-weight: 300; line-height: 32px; margin: 0 0 72px; text-align: center; }
 
-p { color: #111; font-family: 'Helvetica Neue', sans-serif; font-size: 4vh; line-height: 24px; margin: 0 0 24px; text-align: center; text-justify: inter-word; }
+p { color: #040404; font-family: 'Helvetica Neue', sans-serif; font-size: 4vh; line-height: 24px; margin: 0 0 24px; text-align: center; text-justify: inter-word; }
 
-.voces {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-evenly;
-}
-.voces2 {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-}
+
 
 #root {
     width: 100%;
     height: 100%;
 }
 
-#tituloJuego {width: 60vh;
-    height: 0%;
+
+
+#tituloJuego {
+
+width: 60vh;
+
 margin: auto;
 margin-top: 2%;
 padding: 1%;
 text-align: center;
 border-style: solid;
 border-width: 0.6vh;
-border-color: #111;
+border-color: #040404;
 font-size: 7vh;
 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;}
 
 #flexForm {
-    height: 60vh;
+
+    height: 63vh;
     padding: 2vh;
     display: flex;
     flex-direction: column;
@@ -75,11 +73,23 @@ text-align: left;
 
 #cajaTexto { 
      width: 40vh;
+    height: 6vh;
+    font-size: 4vh;
    margin-top: 2vh;
-   background-color: transparent;
+   background-color: #f2edebff;
+   box-shadow: inset 0 0 0 0 #f2edebff;
    border: none;
-   border-bottom: 2px solid #111 ;
+   border-bottom: 2px solid #040404 ;
+    transition: box-shadow .3s ease-in-out;
+}
 
+#cajaTexto:hover {
+    box-shadow: inset 40vh 0 0 0 rgb(255, 176, 112);
+}
+
+#cajaTexto:focus {
+    outline: none;
+ 
 }
     
 
@@ -88,27 +98,39 @@ button {
     background-color: transparent;
     border-width: 2px;
     border-style: solid;
-    border-color: #111;
+    border-color: #040404;
     padding: 2vh, 4vh;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 4vh;
-    align-self: center;}
+    align-self: center;
+    transition: box-shadow .3s ease-in-out, font-size .3s ease-in-out, margin .3s ease-in-out ;
+}
+    
+
+
 
 #botonForm { 
     margin: 4vh;
     background-color: transparent;
     border-width: 2px;
     border-style: solid;
-    border-color: #111;
+    border-color: #040404;
     padding: 2vh, 4vh;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 4vh;
-    align-self: flex-end;}
+    align-self: flex-end;
+    transition: box-shadow .3s ease-in-out, font-size .3s ease-in-out, margin .3s ease-in-out ;
+}
     
+#botonForm:hover {
+    box-shadow: inset 40vh 0 0 0 #ffb070;
+    font-size: 6vh;
+   
+}
 
 #formUsuario {
 width: 25%;
@@ -120,44 +142,211 @@ align-items: center;
 align-content: space-between;}
 
 #displayEquipos {
-    width: 60%;
+    width: 90%;
     display: flex;
     flex-direction: row;
-    margin:auto
+    margin:auto;
+    justify-content: space-between;
 }
 #espacio {
-    width: 5%;
+    display:flex;
+    flex-wrap: wrap;
+    width: 10%;
+    align-content:  flex-start;
+    justify-content: center;
+
 }
 #displayOrden {
+    
     display: flex;
     padding: 20px;
+    max-height: 50vh;
+    width: 40%;
     flex-direction: column;
-    border-style: solid;
-    border-width: 2px;
-    border-color: #111;
+    align-content: center;
+    justify-content: space-between;
+  
 }
 
 #displayCaos {
     display: flex;
     padding: 20px;
+    max-height: 50vh;
+    width: 40%;
     flex-direction: column;
-    border-style: solid;
-    border-width: 2px;
-    border-color: #111;
+    align-content: center;
+    justify-content: space-between;
+   
 }
+
+#listaOrden {
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-height: 100%;
+}
+
+#listaCaos { 
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-height: 100%;
+}
+
+#h2display {
+    font-size: 8vh;
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid #040404;
+    align-self: center;
+    justify-self: center;
+
+}
+
+
+
+#espacioInicio { 
+    margin: 4vh;
+    background-color: transparent;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #040404;
+    padding: 2vh, 4vh;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 4vh;
+    align-self: flex-end;
+    transition: box-shadow .3s ease-in-out, font-size .3s ease-in-out, margin .3s ease-in-out ;
+
+}
+
+
+
+#espacioInicio:hover {
+    box-shadow: inset 40vh 0 0 0 #ffb070;
+    font-size: 6vh;
+}
+
+.pcaos {
+    color:#c50626;
+    font-size: 4vh;
+}
+
+.porden {
+    color:#0061aa;
+    font-size: 4vh;
+}
+
+@keyframes cuentaAtras {
+    from {color: red; transform: scale(3)};
+    to {color:black; transform: scale(1); }
+    
+}
+@keyframes cuentaAtras2 {
+    from {color: red; transform: scale(3)};
+    to {color:black; transform: scale(1); }
+    
+}
+
+#cuentaAtras {
+    animation-name: cuentaAtras;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-in-out;
+    align-self: center;
+    justify-self: center;
+    font-size: 20vh;
+}
+
+#cuentaAtras2 {
+    animation-name: cuentaAtras2;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-in-out;
+    align-self: center;
+    justify-self: center;
+    font-size: 20vh;
+}
+
+#espacioPuntosH {
+    height: 18vh;
+
+}
+
+#tablaPuntos{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;  
+    align-content: flex-start;
+}
+
+@keyframes animacionpuntosOrden {
+   from {transform: scale(2); color:#FFA400 };
+   to {transform: scale(1) ; color:#0061aa;} 
+
+}
+
+@keyframes animacionpuntosCaos {
+    from {transform: scale(2); color:#FFA400 };
+    to {transform: scale(1) ; color:#c50626;} 
+    
+}
+
+#puntosCaos {
+    font-size: 30vh;
+    color: #c50626; 
+    animation: animacionpuntosCaos;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-in-out ;
+}
+
+#puntosOrden {
+    font-size: 30vh;
+    color:#0061aa;
+    animation: animacionpuntosOrden;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-in-out ;
+}
+@keyframes animacionpuntosOrden2 {
+    from {transform: scale(2); color:#FFA400 };
+    to {transform: scale(1) ; color:#0061aa;} 
+ 
+ }
+ 
+ @keyframes animacionpuntosCaos2 {
+     from {transform: scale(2); color:#FFA400 };
+     to {transform: scale(1) ; color:#c50626;} 
+     
+ }
+ 
+ #puntosCaos2 {
+     font-size: 30vh;
+     color: #c50626; 
+     animation: animacionpuntosCaos2;
+     animation-duration: 0.2s;
+     animation-timing-function: ease-in-out ;
+ }
+ 
+ #puntosOrden2 {
+     font-size: 30vh;
+     color:#0061aa;
+     animation: animacionpuntosOrden2;
+     animation-duration: 0.2s;
+     animation-timing-function: ease-in-out ;
+ }
 }
 
 
 
 /*Movil en apaisado*/
 
-@media only screen and (max-width: 768px) and (orientation:landscape) {
+@media only screen and (max-width: 915px) and (orientation:landscape) {
 
-    h1 { color: #111; font-family: 'Helvetica Neue', sans-serif; font-size: 10vh; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center; }
+    h1 { color: #040404; font-family: 'Helvetica Neue', sans-serif; font-size: 10vh; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center; }
     
-    h2 { color: #111; font-family: 'Open Sans', sans-serif; font-size: 8vh; font-weight: 300; line-height: 32px; margin: 0 0 72px; text-align: center; }
+    h2 { color: #040404; font-family: 'Open Sans', sans-serif; font-size: 8vh; font-weight: 300; line-height: 32px; margin: 0 0 72px; text-align: center; }
     
-    p { color: #111; font-family: 'Helvetica Neue', sans-serif; font-size: 4vh; line-height: 24px; margin: 0 0 24px; text-align: center; text-justify: inter-word; }
+    p { color: #040404; font-family: 'Helvetica Neue', sans-serif; font-size: 4vh; line-height: 24px; margin: 0 0 24px; text-align: center; text-justify: inter-word; }
     
     .voces {
         display: flex;
@@ -171,46 +360,80 @@ align-content: space-between;}
     }
     
     #root {
+        position:fixed;
+        top:0;
+        left: 0;
         width: 100%;
         height: 100%;
     }
+
+    body > #root > div {
+        height: 100vh;
     
-    #tituloJuego {width: 60vh;
-        height: 0%;
+    }
+      
+    #divTitulo {
+        position: relative ;
+        top: 5%;
+
+    }
+
+    #tituloJuego {
+    width: 100%;
+    height: 20%;
     margin: auto;
     margin-top: 2%;
     padding: 1%;
     text-align: center;
-    border-style: solid;
-    border-width: 0.6vh;
-    border-color: #111;
-    font-size: 7vh;
+    border-top: 0.6vh solid #040404;
+    border-bottom: 0.6vh solid #040404;
+    font-size: 10vh;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;}
     
     #flexForm {
-        height: 60vh;
+        position: relative;
+        top: 10%;
+        height: 80vh;
         padding: 2vh;
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
+        justify-content: space-around ;
         align-items: center;
     }
     
     #etiquetaForm { 
+    position: relative;
+    top: -40%;
+    width: 60vh;
     font-family: 'Helvetica Neue', sans-serif; 
-    font-size: 4vh; 
-    line-height: 4vh;
-    text-align: left;
+    font-size: 8vh; 
+    line-height: 6vh;
+    text-align: center;
     }
     
     #cajaTexto { 
-         width: 40vh;
-       margin-top: 2vh;
+        width: 60vh;
+        height: 6vh;
+       margin-top: 4vh;
        background-color: transparent;
        border: none;
        border-bottom: 2px solid #111 ;
+       text-align: center;
+       transition: box-shadow .3s ease-in-out;
+       
     
     }
+
+#cajaTexto:hover, #cajaTexto:active {
+    box-shadow: inset 60vh 0 0 0 rgb(255, 176, 112);
+}
+
+#cajaTexto:focus, #cajaTexto:active {
+    outline: none;
+    box-shadow: inset 60vh 0 0 0 rgb(255, 176, 112);
+ 
+}
+    
         
     
     button { 
@@ -228,6 +451,8 @@ align-content: space-between;}
     
     #botonForm { 
         margin: 4vh;
+        position:relative;
+        top: 20%;
         background-color: transparent;
         border-width: 2px;
         border-style: solid;
@@ -236,9 +461,21 @@ align-content: space-between;}
         text-align: center;
         text-decoration: none;
         display: inline-block;
-        font-size: 4vh;
-        align-self: flex-end;}
-        
+        font-size: 8vh;
+        align-self: center;
+        justify-self: flex-end;
+        transition: box-shadow .3s ease-in-out, font-size .3s ease-in-out, margin .3s ease-in-out ;
+    }
+    #botonForm:hover, #botonForm:active {
+        box-shadow: inset 40vh 0 0 0 #ffb070;
+        font-size: 10vh;
+       
+    }
+    #botonForm:focus, #botonForm:active {
+        box-shadow: inset 40vh 0 0 0 #ffb070;
+        font-size: 10vh;
+       
+    }
     
     #formUsuario {
     width: 25%;
@@ -249,37 +486,137 @@ align-content: space-between;}
     align-items: center;
     align-content: space-between;}
     
-    #displayEquipos {
-        width: 60%;
+    #botonesJuez {
+        height: 100%;
+        width: 100%;
         display: flex;
         flex-direction: row;
-        margin:auto
+        justify-content: space-around;
+        align-items: center;
     }
-    #espacio {
-        width: 5%;
-    }
-    #displayOrden {
+
+    #divJuezOrden {
         display: flex;
-        padding: 20px;
-        flex-direction: column;
-        border-style: solid;
-        border-width: 2px;
-        border-color: #111;
+        flex-wrap: wrap;
     }
-    
-    #displayCaos {
+
+    #labelBotonOrden {
+        color: #f2edebff;
+        font-size: 15vh;
+        text-align: center;
+        align-self: center;
+        justify-self: center;
+        z-index: 2;
+        transform: translate(41.5vh);
+        animation: animacionLabelOrden;
+        animation-duration:  1.2s;
+        animation-timing-function: ease-in-out;
+        transition: color .3s ease-in-out, font-size .3s ease-in-out;
+    }
+
+    #botonOrden {
+        z-index: 1;
+        align-self: center;
+        justify-self: center;
+        height: 60vh;
+        width: 60vh;
+        text-align: center;
+        border: 1vh solid #040404;
+        background-color: #0061aa;
+        transform: translate(-10vh);
+        transition: background-color .3s ease-in-out;
+        animation: animacionBotonOrden;
+        animation-duration: 1.2s;
+        animation-timing-function: ease-in-out;
+    }
+
+    @keyframes animacionBotonOrden{
+        from{transform:translate(-100%); background-color: #040404;border:none;};
+        to{transform: translate(-10vh);background-color: #0061aa;border: 1vh solid #040404;}
+    }
+
+    @keyframes animacionLabelOrden {
+        from{transform:scale(1.2); color: #FFA400; transform:translate(-10vh)};
+        to{transform: scale(1);color: #f2edebff; transform: translate(41.5vh);}
+    }
+
+    @keyframes animacionBotonCaos{
+        from{transform:translate(100%); background-color: #040404;border:none;};
+        to{transform: translate(0vh);background-color: #c50626; border: 1vh solid #040404;}
+    }
+
+    @keyframes animacionLabelCaos {
+        from{transform:scale(1.2); color: #FFA400; transform:translate(10vh)};
+        to{transform: scale(1);color: #f2edebff; transform: translate(-48vh);}
+    }
+
+    @keyframes escalarboton {
+        from {transform: scale(1);}
+        to {transform: scale(1.2);}
+    }
+
+    #botonOrden:hover, #botonOrden:active {
+        background-color: #FFA400;
+       
+    }
+    #botonOrden:focus, #botonOrden:active{
+        background-color: #FFA400;
+        
+       
+    }
+
+    #botonCaos:hover, #botonCaos:active {
+        background-color: #FFA400;
+       
+    }
+    #botonCaos:focus, #botonCaos:active{
+        background-color: #FFA400;
+        
+       
+    }
+
+   
+    #divJuezCaos {
         display: flex;
-        padding: 20px;
-        flex-direction: column;
-        border-style: solid;
-        border-width: 2px;
-        border-color: #111;
+        flex-wrap: wrap;
     }
+
+    #labelBotonCaos {
+        color: #f2edebff;
+        font-size: 15vh;
+        text-align: center;
+        align-self: center;
+        justify-self: center;
+        z-index: 2;
+        transform: translate(-48vh);
+        animation: animacionLabelCaos;
+        animation-duration: 1.2s;
+        animation-timing-function: ease-in-out;
+        
+    }
+
+    #botonCaos {
+        z-index: 1;
+        align-self: center;
+        justify-self: center;
+        height: 60vh;
+        width: 60vh;
+        text-align: center;
+        border: 1vh solid #040404;
+        background-color: #c50626;
+        transform: translate(0vh);
+        animation: animacionBotonCaos;
+        animation-duration: 1.2s;
+        animation-timing-function: ease-in-out;
+
+    }
+
+   
     }
 
     /*Movil vertical*/
     
-    @media only screen and (max-width: 768px) and (orientation:portrait) {
+    @media only screen and (max-width: 915px) and (orientation:portrait) {
 
         h1 { color: #111; font-family: 'Helvetica Neue', sans-serif; font-size: 3vh; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center; }
         
@@ -340,6 +677,15 @@ align-content: space-between;}
            border-bottom: 2px solid #111 ;
         
         }
+
+#cajaTexto:hover {
+    box-shadow: inset 40vh 0 0 0 rgb(255, 176, 112);
+}
+
+#cajaTexto:focus {
+    outline: none;
+ 
+}
             
         
         button { 
@@ -377,33 +723,134 @@ align-content: space-between;}
         justify-content: center;
         align-items: center;
         align-content: space-between;}
-        
-        #displayEquipos {
-            width: 60%;
+
+        #botonesJuez {
+            height: 100%;
+            width: 100%;
             display: flex;
-            flex-direction: row;
-            margin:auto
-        }
-        #espacio {
-            width: 5%;
-        }
-        #displayOrden {
-            display: flex;
-            padding: 20px;
             flex-direction: column;
-            border-style: solid;
-            border-width: 2px;
-            border-color: #111;
+            justify-content: space-around;
+            align-items: center;
+        }
+    
+        #divJuezOrden {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    
+        #labelBotonOrden {
+            color: #f2edebff;
+            font-size: 5vh;
+            text-align: center;
+            align-self: center;
+            justify-self: center;
+            z-index: 2;
+            transform: translate(15vh, 5vh);
+            animation: animacionLabelOrden;
+            animation-duration:  1.2s;
+            animation-timing-function: ease-in-out;
+            transition: color .3s ease-in-out, font-size .3s ease-in-out;
+        }
+    
+        #botonOrden {
+            z-index: 1;
+            position:relative;
+            height: 30vh;
+            width: 30vh;
+            text-align: center;
+            border: 0.6vh solid #040404;
+            background-color: #0061aa;
+            transform: translate(-6.8vh, 5vh);
+            transition: background-color .3s ease-in-out;
+            animation: animacionBotonOrden;
+            animation-duration: 1.2s;
+            animation-timing-function: ease-in-out;
+        }
+    
+        @keyframes animacionBotonOrden{
+            from{transform:translate(-6.8vh, -100%); background-color: #040404;border:none;};
+            to{transform: translate(-6.8vh, 5vh);background-color: #0061aa;border: 0.6vh solid #040404;}
+        }
+    
+        @keyframes animacionLabelOrden {
+            from{transform:scale(1.2); color: #FFA400; transform:translate(15vh, -22.5vh)};
+            to{transform: scale(1);color: #f2edebff; transform: translate(15vh, 5vh);}
+        }
+    
+        @keyframes animacionBotonCaos{
+            from{transform:translate(6.1vh, 100%); background-color: #040404;border:none;};
+            to{transform: translate(6.1vh, 0vh);background-color: #c50626; border: 0.6vh solid #040404;}
+        }
+    
+        @keyframes animacionLabelCaos {
+            from{transform:scale(1.2); color: #FFA400; transform:translate(-15vh, 22.5vh)};
+            to{transform: scale(1);color: #f2edebff; transform: translate(-15vh, 0vh);}
+        }
+    
+        @keyframes escalarboton {
+            from {transform: scale(1);transform: translate(-2.5vh);}
+            to {transform: scale(1.2);transform: translate(-2.5vh);}
+        }
+    
+        #botonOrden:hover, #botonOrden:active {
+            background-color: #FFA400;
+           
+            
+            
+        }
+        #botonOrden:focus, #botonOrden:active{
+            background-color: #FFA400;
+            
+           
+        }
+    
+        #botonCaos:hover, #botonCaos:active {
+            background-color: #FFA400;
+           
+            
+        }
+        #botonCaos:focus, #botonCaos:active{
+            background-color: #FFA400;
+            
+           
+        }
+    
+       
+        #divJuezCaos {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    
+        #labelBotonCaos {
+            color: #f2edebff;
+            font-size: 5vh;
+            text-align: center;
+            align-self: center;
+            justify-self: center;
+            z-index: 2;
+            transform: translate(-15vh, 0vh);
+            animation: animacionLabelCaos;
+            animation-duration: 1.2s;
+            animation-timing-function: ease-in-out;
+            
+        }
+    
+        #botonCaos {
+            z-index: 1;
+            align-self: center;
+            justify-self: center;
+            height: 30vh;
+            width: 30vh;
+            text-align: center;
+            border: 0.6vh solid #040404;
+            background-color: #c50626;
+            transform: translate(6.1vh, 0vh);
+            animation: animacionBotonCaos;
+            animation-duration: 1.2s;
+            animation-timing-function: ease-in-out;
+    
         }
         
-        #displayCaos {
-            display: flex;
-            padding: 20px;
-            flex-direction: column;
-            border-style: solid;
-            border-width: 2px;
-            border-color: #111;
-        }
-        }
+    }
         
     
