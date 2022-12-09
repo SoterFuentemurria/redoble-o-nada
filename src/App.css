@@ -507,7 +507,7 @@ align-content: space-between;}
         align-self: center;
         justify-self: center;
         z-index: 2;
-        transform: translate(41.5vh);
+        transform: translate(41vh);
         animation: animacionLabelOrden;
         animation-duration:  1.2s;
         animation-timing-function: ease-in-out;
@@ -760,7 +760,7 @@ align-content: space-between;}
             text-align: center;
             border: 0.6vh solid #040404;
             background-color: #0061aa;
-            transform: translate(-6.8vh, 5vh);
+            transform: translate(-6.9vh, 5vh);
             transition: background-color .3s ease-in-out;
             animation: animacionBotonOrden;
             animation-duration: 1.2s;
@@ -768,8 +768,8 @@ align-content: space-between;}
         }
     
         @keyframes animacionBotonOrden{
-            from{transform:translate(-6.8vh, -100%); background-color: #040404;border:none;};
-            to{transform: translate(-6.8vh, 5vh);background-color: #0061aa;border: 0.6vh solid #040404;}
+            from{transform:translate(-6.9vh, -100%); background-color: #040404;border:none;};
+            to{transform: translate(-6.9vh, 5vh);background-color: #0061aa;border: 0.6vh solid #040404;}
         }
     
         @keyframes animacionLabelOrden {

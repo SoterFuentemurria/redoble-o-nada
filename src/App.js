@@ -958,7 +958,7 @@ class Juez extends React.Component {
   finVotacion() {
     console.log("adios")
     this.setState({botonOrden: "", botonCaos: ""})
-    this.votosID = setTimeout(()=> this.votacion(), 1500)
+    this.votosID = setTimeout(()=> this.votacion(), 15000)
   }
 
 
