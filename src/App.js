@@ -15,7 +15,7 @@ import { io } from "socket.io-client";
 import "./App.css"
 import * as Tone from 'tone'
 
-import icon from './favicon.ico';
+import icon from '/favicon.ico';
 
 useEffect(() => {
     const favicon = document.getElementById('favicon');
