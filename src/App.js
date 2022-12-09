@@ -15,6 +15,13 @@ import { io } from "socket.io-client";
 import "./App.css"
 import * as Tone from 'tone'
 
+import icon from './favicon.ico';
+
+useEffect(() => {
+    const favicon = document.getElementById('favicon');
+    favicon.setAttribute('href', icon);
+}, []);
+
 // Inicializamos el socket
 const URL = "https://redoble-o-nada.herokuapp.com";
 //const URL = "http://localhost:5000/";
@@ -989,9 +996,16 @@ class Juego extends React.Component {
     super(props)
     console.log(juegoIniciado)
     this.state = {juegoIniciado : false, fin: false, equipoGanador: ""}
+    this.reinicio = this.reinicio.bind(this)
     
   }
+  reinicio() {
+    juegoIniciado = false
+  }
 
+  componentWillUnmount() {
+    clearTimeout(this.resetID)
+  }
   // renderiza un evento socket de "iniciado" actualiza el estado si desde el server recibe que se inició
   // el juego
 
@@ -1007,7 +1021,12 @@ class Juego extends React.Component {
       this.setState({juegoIniciado: juegoIniciado})
       console.log(this.state.juegoIniciado)
     })
-    if (this.state.fin === true) {return(
+    if (this.state.fin === true) {
+      this.resetID = setTimeout(()=> reinicio(), 30000)
+      ronda = 0
+      audioContext = false
+      return(
+        
       <div>
         <h1>Ha ganado el equipo {this.state.equipoGanador}</h1>
         <h2>Gracias por jugar</h2>
