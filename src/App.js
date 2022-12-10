@@ -21,8 +21,8 @@ import icon from './images/favicon.ico';
 
 
 // Inicializamos el socket
-const URL = "https://redoble-o-nada.herokuapp.com";
-//const URL = "http://localhost:5000/";
+//const URL = "https://redoble-o-nada.herokuapp.com";
+const URL = "http://localhost:5000/";
 const socket = io(URL, { autoConnect: false });
 
 // el socket, para cada evento, postea en la consola el evento y los argumentos
@@ -300,15 +300,15 @@ class Capitan extends React.Component{
   // funciones para cargar de forma condicional los botones de más y menos
   menosInvisible(i) {
     if (this["voz" + i].length > 0) {
-      return (<button onClick={this.handleMenos.bind(this,i)}>-</button>)
+      return (<button id = "botonMenos" onClick={this.handleMenos.bind(this,i)}>-</button>)
     }
-    else {return null}
+    else {return <button id = "botonInvisible">-</button>}
   }
   masInvisible(i) {
     if (this.reserva.length > 0) {
-      return (<button onClick={this.handleMas.bind(this, i)}>+</button>)
+      return (<button id = "botonMas" onClick={this.handleMas.bind(this, i)}>+</button>)
     }
-    else {return null}
+    else {return <button id = "botonInvisible">+</button>}
   }
   
 
@@ -429,16 +429,15 @@ class Capitan extends React.Component{
 
 
   if (ronda === 1) {
-    return(<div>
-      <h1>Armonia</h1>
-      <h2>{this.reserva.length}</h2>
-
+    return(<div id= "padreVoces">
+      <h2 id = "reserva">Jugadores sin asignar: {this.reserva.length}</h2>
+      <div id= "flexVoces">
       <div class="voces">
         {this.menosInvisible(1)}
         <div class="voces2">
-          <p>{this.state.voz1.length}</p>
-          <p>{this.state.n1}</p>
-          <p>{this.state.enemigos1}</p>
+          <p id = "aliados">{this.state.voz1.length}</p>
+          <p id = "notaCap">{this.state.n1}</p>
+          <p id = "enemigos">{this.state.enemigos1}</p>
         </div>
         {this.masInvisible(1)}
       </div>
@@ -446,9 +445,9 @@ class Capitan extends React.Component{
       <div class="voces">
         {this.menosInvisible(2)}
         <div class="voces2">
-          <p>{this.state.voz2.length}</p>
-          <p>{this.state.n2}</p>
-          <p>{this.state.enemigos2}</p>
+          <p id = "aliados">{this.state.voz2.length}</p>
+          <p id = "notaCap">{this.state.n2}</p>
+          <p id = "enemigos">{this.state.enemigos2}</p>
         </div>
         {this.masInvisible(2)}
       </div>
@@ -456,9 +455,9 @@ class Capitan extends React.Component{
       <div class="voces">
         {this.menosInvisible(3)}
         <div class="voces2">
-          <p>{this.state.voz3.length}</p>
-          <p>{this.state.n3}</p>
-          <p>{this.state.enemigos3}</p>
+          <p id = "aliados">{this.state.voz3.length}</p>
+          <p id = "notaCap">{this.state.n3}</p>
+          <p id = "enemigos">{this.state.enemigos3}</p>
         </div>
         {this.masInvisible(3)}
       </div>
@@ -466,9 +465,9 @@ class Capitan extends React.Component{
       <div class="voces">
         {this.menosInvisible(4)}
         <div class="voces2">
-          <p>{this.state.voz4.length}</p>
-          <p>{this.state.n4}</p>
-          <p>{this.state.enemigos4}</p>
+          <p id = "aliados">{this.state.voz4.length}</p>
+          <p id = "notaCap">{this.state.n4}</p>
+          <p id = "enemigos">{this.state.enemigos4}</p>
         </div>
         {this.masInvisible(4)}
       </div>
@@ -476,9 +475,9 @@ class Capitan extends React.Component{
       <div class="voces">
         {this.menosInvisible(5)}
         <div class="voces2">
-          <p>{this.state.voz5.length}</p>
-          <p>{this.state.n5}</p>
-          <p>{this.state.enemigos5}</p>
+          <p id = "aliados">{this.state.voz5.length}</p>
+          <p id = "notaCap">{this.state.n5}</p>
+          <p id = "enemigos">{this.state.enemigos5}</p>
         </div>
         {this.masInvisible(5)}
       </div>
@@ -486,13 +485,13 @@ class Capitan extends React.Component{
       <div class="voces">
         {this.menosInvisible(6)}
         <div class="voces2">
-          <p>{this.state.voz6.length}</p>
-          <p>{this.state.n6}</p>
-          <p>{this.state.enemigos6}</p>
+          <p id = "aliados">{this.state.voz6.length}</p>
+          <p id = "notaCap">{this.state.n6}</p>
+          <p id = "enemigos">{this.state.enemigos6}</p>
         </div>
         {this.masInvisible(6)}
       </div>
-
+      </div>
     </div>)
     
   }
@@ -956,8 +955,8 @@ class Juez extends React.Component {
 
   votacion() {
     console.log("hola")
-    this.setState({botonOrden : <div id = "divJuezOrden"><h1 id='labelBotonOrden'>Orden</h1><input type= "button" id='botonOrden' onClick={this.votoOrden}></input></div>})
-    this.setState({botonCaos : <div id = "divJuezCaos"><input type= "button" id="botonCaos" onClick={this.votoCaos}></input><h1 id="labelBotonCaos">Caos</h1></div>})
+    this.setState({botonOrden : <div id = "divJuezOrden"><input type= "button" id='botonOrden' value={"Orden"}  onClick={this.votoOrden}></input></div>})
+    this.setState({botonCaos : <div id = "divJuezCaos"><input type= "button" id="botonCaos" value={"Caos"} onClick={this.votoCaos}></input></div>})
   }
 
   finVotacion() {

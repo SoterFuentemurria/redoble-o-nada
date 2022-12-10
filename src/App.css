@@ -218,7 +218,6 @@ align-content: space-between;}
     font-size: 4vh;
     align-self: flex-end;
     transition: box-shadow .3s ease-in-out, font-size .3s ease-in-out, margin .3s ease-in-out ;
-
 }
 
 
@@ -348,16 +347,95 @@ align-content: space-between;}
     
     p { color: #040404; font-family: 'Helvetica Neue', sans-serif; font-size: 4vh; line-height: 24px; margin: 0 0 24px; text-align: center; text-justify: inter-word; }
     
-    .voces {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-evenly;
+    #tituloVoces {
+        font-size: 4vh;
     }
-    .voces2 {
+
+    #reserva{
+
+        font-size: 7vh;
+        margin: 7vh 1vh 15vh;
+    }
+
+    #flexVoces{
+        display: flex;
+        flex-direction:row;
+        justify-items: flex-start;
+        flex-wrap: wrap;
+       
+    }
+
+    #padreVoces {
+        width: 100%;
+        height: 100%;
+        display:flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    #aliados {
+        font-size: 7vh;
+        color:#0061aa;
+        text-align: center;
+        align-self: center;
+        margin: 0 0;
+    }
+
+    #enemigos {
+        font-size: 7vh;
+        color: #c50626;
+        text-align: center;
+        align-self: center;
+        margin: 0 0;
+    }
+
+    #notaCap {
+        font-size: 7vh;
+        color: #040404;
+        text-align: center;
+        align-self: center;
+        margin: 0 0;
+    }
+
+    #botonMenos {
+        font-size: 7vh;
+        color: #040404;
+        align-self: center;
+        text-align: center;
+
+    }
+
+    #botonMas{
+        font-size: 7vh;
+        color: #040404;
+        align-self: center;
+        text-align: center;
+    }
+    
+    #botonInvisible {
+        font-size: 7vh;
+        color: transparent;
+        align-self: center;
+        text-align: center;
+        border:none
+    }
+    .voces {
+        height: 25%;
+        width: 50%;
         display: flex;
         flex-wrap: nowrap;
         justify-content: center;
+        align-content: center;
     }
+    .voces2 {
+        width: 40%;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-evenly;
+        align-content: center;
+    }
+    
     
     #root {
         position:fixed;
@@ -496,26 +574,17 @@ align-content: space-between;}
     }
 
     #divJuezOrden {
+        
         display: flex;
         flex-wrap: wrap;
+        flex-direction: row;
     }
 
-    #labelBotonOrden {
-        color: #f2edebff;
-        font-size: 15vh;
-        text-align: center;
-        align-self: center;
-        justify-self: center;
-        z-index: 2;
-        transform: translate(41vh);
-        animation: animacionLabelOrden;
-        animation-duration:  1.2s;
-        animation-timing-function: ease-in-out;
-        transition: color .3s ease-in-out, font-size .3s ease-in-out;
-    }
 
     #botonOrden {
+        color: #f2edebff;
         z-index: 1;
+        font-family: 'Helvetica Neue', sans-serif; font-size: 15vh; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center;
         align-self: center;
         justify-self: center;
         height: 60vh;
@@ -523,7 +592,7 @@ align-content: space-between;}
         text-align: center;
         border: 1vh solid #040404;
         background-color: #0061aa;
-        transform: translate(-10vh);
+        transform: translate(0vh);
         transition: background-color .3s ease-in-out;
         animation: animacionBotonOrden;
         animation-duration: 1.2s;
@@ -531,24 +600,17 @@ align-content: space-between;}
     }
 
     @keyframes animacionBotonOrden{
-        from{transform:translate(-100%); background-color: #040404;border:none;};
-        to{transform: translate(-10vh);background-color: #0061aa;border: 1vh solid #040404;}
+        from{transform:translate(-100%); background-color: #040404;border:none; color:#FFA400};
+        to{transform: translate(-0%);background-color: #0061aa;border: 1vh solid #040404; color: #f2edebff;}
     }
 
-    @keyframes animacionLabelOrden {
-        from{transform:scale(1.2); color: #FFA400; transform:translate(-10vh)};
-        to{transform: scale(1);color: #f2edebff; transform: translate(41.5vh);}
-    }
 
     @keyframes animacionBotonCaos{
-        from{transform:translate(100%); background-color: #040404;border:none;};
-        to{transform: translate(0vh);background-color: #c50626; border: 1vh solid #040404;}
+        from{transform:translate(100%); background-color: #040404;border:none; color:#FFA400};
+        to{transform: translate(0%);background-color: #c50626; border: 1vh solid #040404; color:#f2edebff}
     }
 
-    @keyframes animacionLabelCaos {
-        from{transform:scale(1.2); color: #FFA400; transform:translate(10vh)};
-        to{transform: scale(1);color: #f2edebff; transform: translate(-48vh);}
-    }
+ 
 
     @keyframes escalarboton {
         from {transform: scale(1);}
@@ -577,34 +639,25 @@ align-content: space-between;}
 
    
     #divJuezCaos {
+        
         display: flex;
         flex-wrap: wrap;
+        flex-direction: row;
     }
 
-    #labelBotonCaos {
-        color: #f2edebff;
-        font-size: 15vh;
-        text-align: center;
-        align-self: center;
-        justify-self: center;
-        z-index: 2;
-        transform: translate(-48vh);
-        animation: animacionLabelCaos;
-        animation-duration: 1.2s;
-        animation-timing-function: ease-in-out;
-        
-    }
+  
 
     #botonCaos {
+        color: #f2edebff;
         z-index: 1;
         align-self: center;
         justify-self: center;
+        font-family: 'Helvetica Neue', sans-serif; font-size: 15vh; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center;
         height: 60vh;
         width: 60vh;
         text-align: center;
         border: 1vh solid #040404;
         background-color: #c50626;
-        transform: translate(0vh);
         animation: animacionBotonCaos;
         animation-duration: 1.2s;
         animation-timing-function: ease-in-out;
@@ -624,15 +677,85 @@ align-content: space-between;}
         
         p { color: #111; font-family: 'Helvetica Neue', sans-serif; font-size: 4vh; line-height: 24px; margin: 0 0 24px; text-align: center; text-justify: inter-word; }
         
+
+        #tituloVoces {
+            font-size: 4vh;
+        }
+
+        #reserva{
+
+            font-size: 3.5vh;
+            margin: 4vh 1vh;
+        }
+
+        #flexVoces{
+            display: flex;
+            flex-direction:column;
+            justify-items: flex-end;
+           
+        }
+
+        #padreVoces {
+            width: 100%;
+            height: 100%;
+            display:flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        #aliados {
+           
+            color:#0061aa;
+            text-align: center;
+            align-self: center;
+            margin: 0 0;
+        }
+
+        #enemigos {
+            color: #c50626;
+            text-align: center;
+            align-self: center;
+            margin: 0 0;
+        }
+
+        #notaCap {
+            color: #040404;
+            text-align: center;
+            align-self: center;
+            margin: 0 0;
+        }
+
+        #botonMenos {
+            color: #040404;
+            align-self: center;
+            text-align: center;
+
+        }
+
+        #botonMas{
+            color: #040404;
+            align-self: center;
+            text-align: center;
+        }
+        
+        #botonInvisible {
+            color: transparent;
+            align-self: center;
+            text-align: center;
+            border:none
+        }
         .voces {
             display: flex;
             flex-wrap: nowrap;
-            justify-content: space-evenly;
+            justify-content: space-between;
+            align-content: center;
         }
         .voces2 {
+            width: 40%;
             display: flex;
             flex-wrap: nowrap;
-            justify-content: center;
+            justify-content: space-around;
+            align-content: center;
         }
         
         #root {
@@ -734,58 +857,46 @@ align-content: space-between;}
         }
     
         #divJuezOrden {
+            
             display: flex;
+            flex-direction: column;
             flex-wrap: wrap;
+            justify-content: center;
         }
     
-        #labelBotonOrden {
-            color: #f2edebff;
-            font-size: 5vh;
-            text-align: center;
-            align-self: center;
-            justify-self: center;
-            z-index: 2;
-            transform: translate(15vh, 5vh);
-            animation: animacionLabelOrden;
-            animation-duration:  1.2s;
-            animation-timing-function: ease-in-out;
-            transition: color .3s ease-in-out, font-size .3s ease-in-out;
-        }
+     
     
         #botonOrden {
+            color: #f2edebff;
+            font-family: 'Helvetica Neue', sans-serif; font-size: 5vh; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center;
             z-index: 1;
-            position:relative;
-            height: 30vh;
-            width: 30vh;
+            align-self: center;
+        justify-self: center;
+            height: 40vh;
+            width: 40vh;
             text-align: center;
             border: 0.6vh solid #040404;
             background-color: #0061aa;
-            transform: translate(-6.9vh, 5vh);
             transition: background-color .3s ease-in-out;
             animation: animacionBotonOrden;
             animation-duration: 1.2s;
             animation-timing-function: ease-in-out;
+            align-self: center;
         }
     
         @keyframes animacionBotonOrden{
-            from{transform:translate(-6.9vh, -100%); background-color: #040404;border:none;};
-            to{transform: translate(-6.9vh, 5vh);background-color: #0061aa;border: 0.6vh solid #040404;}
+            from{transform:translate(0%, -100%); background-color: #040404;border:none;color: #FFA400};
+            to{transform: translate(0%, 0%);background-color: #0061aa;border: 0.6vh solid #040404; color: #f2edebff;}
         }
     
-        @keyframes animacionLabelOrden {
-            from{transform:scale(1.2); color: #FFA400; transform:translate(15vh, -22.5vh)};
-            to{transform: scale(1);color: #f2edebff; transform: translate(15vh, 5vh);}
-        }
     
         @keyframes animacionBotonCaos{
-            from{transform:translate(6.1vh, 100%); background-color: #040404;border:none;};
-            to{transform: translate(6.1vh, 0vh);background-color: #c50626; border: 0.6vh solid #040404;}
+            from{transform:translate(0%, 100%); background-color: #040404;border:none;color: #FFA400};
+            to{transform: translate(0%, 0%);background-color: #c50626; border: 0.6vh solid #040404;color: #f2edebff;}
         }
     
-        @keyframes animacionLabelCaos {
-            from{transform:scale(1.2); color: #FFA400; transform:translate(-15vh, 22.5vh)};
-            to{transform: scale(1);color: #f2edebff; transform: translate(-15vh, 0vh);}
-        }
+
+      
     
         @keyframes escalarboton {
             from {transform: scale(1);transform: translate(-2.5vh);}
@@ -817,37 +928,32 @@ align-content: space-between;}
     
        
         #divJuezCaos {
+           
             display: flex;
+            flex-direction: column;
             flex-wrap: wrap;
+            justify-content: center;
         }
     
-        #labelBotonCaos {
-            color: #f2edebff;
-            font-size: 5vh;
-            text-align: center;
-            align-self: center;
-            justify-self: center;
-            z-index: 2;
-            transform: translate(-15vh, 0vh);
-            animation: animacionLabelCaos;
-            animation-duration: 1.2s;
-            animation-timing-function: ease-in-out;
-            
-        }
+    
+        
     
         #botonCaos {
+            color: #f2edebff;
             z-index: 1;
             align-self: center;
             justify-self: center;
-            height: 30vh;
-            width: 30vh;
+            font-family: 'Helvetica Neue', sans-serif; font-size: 5vh; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center;
+            height: 40vh;
+            width: 40vh;
             text-align: center;
             border: 0.6vh solid #040404;
             background-color: #c50626;
-            transform: translate(6.1vh, 0vh);
             animation: animacionBotonCaos;
             animation-duration: 1.2s;
             animation-timing-function: ease-in-out;
+           
+        
     
         }
         
