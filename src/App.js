@@ -21,8 +21,8 @@ import icon from './images/favicon.ico';
 
 
 // Inicializamos el socket
-//const URL = "https://redoble-o-nada.herokuapp.com";
-const URL = "http://localhost:5000/";
+const URL = "https://redoble-o-nada.herokuapp.com";
+//const URL = "http://localhost:5000/";
 const socket = io(URL, { autoConnect: false });
 
 // el socket, para cada evento, postea en la consola el evento y los argumentos
