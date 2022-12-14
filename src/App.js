@@ -120,10 +120,10 @@ class JugadoresLobby extends React.Component{
   // seria positivo meter info sobre como se juega y la función del equipo/clase
   render() {
     return(
-      <div>
-        <h1>Bienvenido a la sala de espera {userName} </h1>
-        <p> Jugarás de {clase} en el equipo {equipo}</p>
-        <p>Hay {numeroUsuarios} jugadores esperando</p>
+      <div id = "divLobby">
+        <h1 id = "h1Lobby">Bienvenido a la sala de espera {userName} </h1>
+        <p id = "pLobby"> Jugarás de {clase} en el equipo {equipo}</p>
+        <p id = "p2Lobby">Hay {numeroUsuarios} jugadores esperando</p>
         </div>)
 
     }
@@ -536,7 +536,7 @@ class Combatiente extends React.Component {
         this.setState({n1:<h2 id= "normal">{this.n1}</h2>, n2: <h2 id= "normal">{this.n2}</h2>,  n3: <h2 id= "normal">{this.n3}</h2>,  n4: <h2 id= "normal">{this.n4}</h2>,  n5: <h2 id= "normal">{this.n5}</h2> ,n6:<h2 id= "normal">{this.n6}</h2> })
       }
       else {
-        let n = "n" + this.state.voz
+        let n = "n" + arg
         this.setState({mensaje: "Estás en la voz " + arg})
         this.setState({[n] : <h2 id= "resaltado">{this[n]}</h2>})
     }})
