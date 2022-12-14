@@ -24,8 +24,8 @@ app.get('*', (req, res) => {
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
     cors: {
-        origin: "http://www.redobleonada.com/",
-        //origin: "*",
+        //origin: "http://www.redobleonada.com/",
+        origin: "*",
     },
 });
 
@@ -289,7 +289,7 @@ io.on("connection", (socket) => {
     if (indexOrden > -1) { 
       equipo = "orden"
     }
-      io.to(idHost).emit("propuestaNota", voz, nota, usuario, equipo)
+      io.to(idHost).emit("pNota", voz, nota, usuario, equipo)
       
     })
 

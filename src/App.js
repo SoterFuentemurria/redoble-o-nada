@@ -10,19 +10,19 @@
 
 
 // Importamos los modulos
-import React from 'react'
+import React from 'react';
 import { useEffect } from 'react';
 import { io } from "socket.io-client";
-import "./App.css"
-import * as Tone from 'tone'
-
+import "./App.css";
+import * as Tone from 'tone';
 import icon from './images/favicon.ico';
+var throttle = require("lodash/throttle");
 
 
 
 // Inicializamos el socket
-const URL = "http://www.redobleonada.com/";
-//const URL = "http://localhost:5000/";
+//const URL = "http://www.redobleonada.com/";
+const URL = "http://localhost:5000/";
 const socket = io(URL, { autoConnect: false });
 
 // el socket, para cada evento, postea en la consola el evento y los argumentos
@@ -91,7 +91,7 @@ class LoginControl extends React.Component {
       // Clase y equipo. Se renderiza el componente del lobby para jugadores o host
       socket.on("usuarios", (arg)=> { numeroUsuarios = arg ;
         this.setState({numUsuarios: numeroUsuarios})
-        console.log(numeroUsuarios)})
+        })
 
       socket.on("clase", (arg) => { clase = arg;
         this.setState({clase: clase})
@@ -157,7 +157,7 @@ class HostLobby extends React.Component {
     if (this.state.cuenta === 1){
       socket.emit("iniciar")
       if (audioContext === false) {
-        console.log("contextoAudio")
+        
         new Tone.Context()
         
         audioContext = true
@@ -198,7 +198,7 @@ class HostLobby extends React.Component {
             <h2 id= "h2display">Equipo Orden</h2>
             <div id= "listaOrden">{listaOrden}</div>
           </div>
-          <div id = "espacio"><button id = "espacioInicio" onClick={this.handleClick}>Iniciar</button></div>
+          <div id = "espacio"><button id = "espacioInicio" onClick={throttle(this.handleClick, 200)}>Iniciar</button></div>
           <div id = "displayCaos">
             <h2 id = "h2display">Equipo Caos</h2>
             <div id= "listaCaos">{listaCaos}</div>
@@ -291,7 +291,7 @@ class Capitan extends React.Component{
     this.reserva.push(desplazado)
     let arg = this.reserva
     this.setState({reserva: arg, [voz]: arr})
-    console.log("reserva", this.reserva)
+    
     // ENVIAR info a server. Nombre usuario. En el server se actualiza para enemigos
     socket.emit("vozmenos", desplazado, i, arr, this.equipo)
   }
@@ -300,13 +300,13 @@ class Capitan extends React.Component{
   // funciones para cargar de forma condicional los botones de más y menos
   menosInvisible(i) {
     if (this["voz" + i].length > 0) {
-      return (<button id = "botonMenos" onClick={this.handleMenos.bind(this,i)}>-</button>)
+      return (<button id = "botonMenos" onClick={throttle(this.handleMenos.bind(this,i), 100)}>-</button>)
     }
     else {return <button id = "botonInvisible">-</button>}
   }
   masInvisible(i) {
     if (this.reserva.length > 0) {
-      return (<button id = "botonMas" onClick={this.handleMas.bind(this, i)}>+</button>)
+      return (<button id = "botonMas" onClick={throttle(this.handleMas.bind(this, i), 100)}>+</button>)
     }
     else {return <button id = "botonInvisible">+</button>}
   }
@@ -316,25 +316,25 @@ class Capitan extends React.Component{
 
     socket.on("enemigos", (voz, jugavoz)=> {
       
-      console.log("i", voz)
+     
       let enemigos = "enemigos" + voz
-      console.log("enemigos", enemigos)
+   
       let numero = jugavoz.length
-      console.log(numero)
+    
       this.setState({[enemigos]: numero})
     })
 
 
     socket.on("CapEquipo", (arg)=>{
       this.equipo = arg
-      console.log("EQUIPO", this.equipo)
+     
       
     })
 
     socket.on("reservas", (arg)=> {
       this.reserva = arg
       this.setState({reserva: arg})
-      console.log("reserva", this.reserva)
+      
     })
 
     socket.on("cambioNota", (voz, nota)=>{
@@ -518,7 +518,7 @@ class Combatiente extends React.Component {
   }
 
   nombreVoz() {
-    console.log("funciona", this.state.voz)
+    
     
     if (this.state.voz === 0) {
       this.setState({mensaje: "Estás en la reserva"}) 
@@ -532,15 +532,13 @@ class Combatiente extends React.Component {
   }
 
   handleChange(event) {    this.setState({value: event.target.value}); 
-  console.log("value", this.state.value) }
+   }
 
-  handleSubmit(event) {
-    
-
-    event.preventDefault();
+  handleSubmit() {
+  
     // se envía el evento username, para que el servidor almacene el nombre de usuario
     // se pregunta al servidor si el juego ha empezado
-    console.log("propuesta enviada", this.state.value)
+    
 
     socket.emit("propuestaNota", this.state.voz, this.state.value)
   }
@@ -548,11 +546,11 @@ class Combatiente extends React.Component {
   render() {
     
     socket.on("vozArm", (arg)=> {
-      console.log("arg", arg)
-      this.setState({voz: arg}, ()=> {console.log("estado", this.state.voz)
+      
+      this.setState({voz: arg})
       this.nombreVoz()
     })
-    })
+    
 
     socket.on("cambioNota", (voz, nota)=> {
       let n = "n" + voz
@@ -580,7 +578,7 @@ class Combatiente extends React.Component {
             Propón una nota 
           <input type= "text" id= "inputPropuesta" value={this.state.value} onChange={this.handleChange}></input>
           </label>
-          <button type = "button" id = "botonPropuesta" onClick={this.handleSubmit} >Enviar!</button> 
+          <button type = "button" id = "botonPropuesta" onClick={throttle(this.handleSubmit, 100)} >Enviar!</button> 
         </div></div>
       </div>
     )
@@ -670,7 +668,7 @@ class Host extends React.Component {
     if (ronda === 1){
     this.timerID = setInterval(()=> this.tick(), 1000)
 
-    console.log("ID1 por tick", this.cambioID1)
+    
 
     this.cambioID1 = setTimeout(()=> this.cambio1(), this.intervalo1)
     this.cambioID2 = setTimeout(()=> this.cambio2(), this.intervalo2)
@@ -690,7 +688,7 @@ class Host extends React.Component {
 
   tick(){
     this.hora = Math.round((Date.now() - this.inicio)/1000)
-    console.log(this.hora)
+    
     this.setState({tiempo : this.hora})
   }
 
@@ -739,16 +737,15 @@ class Host extends React.Component {
 
       // se elige la nota ganadora
       if (equipoGanador === "orden") {
-        console.log("eligiendoOrden")
+       
         let index = Math.floor(Math.random()* this[n].pOrden.length)
         this[n].notaGanadora = this[n].pOrden[index]           
       } 
         else {
-          console.log("eligiendoCaos")
+          
           let index = Math.floor(Math.random()* this[n].pCaos.length)
           this[n].notaGanadora = this[n].pCaos[index]
-          console.log("index", index)
-          console.log("")
+          
         }
     } 
 
@@ -765,9 +762,7 @@ class Host extends React.Component {
             
     
 
-    console.log("this", this[n], n)
-    console.log("equipo", equipoGanador)
-    console.log("nota", this[n].notaGanadora)
+   
 
     socket.emit("cambiarNota", voz, this[n].notaGanadora)
     let notaG = this[n].notaGanadora
@@ -776,11 +771,11 @@ class Host extends React.Component {
       cambioNota = 1
     } else {cambioNota = 0}
     this[n] = {orden: 0, caos: 0, pOrden: [], pCaos: [], uOrden: [], uCaos: [], notaGanadora: notaG, cambio: cambioNota }
-    console.log(this[n])
+    
   }
 
   cambio1() {
-    console.log("cambio1")
+    
     this.mecanismoCambio(1)
     if (this.v1.cambio === 1) {
       this.osc1.frequency.rampTo(this.v1.notaGanadora,Math.random()* 10)
@@ -793,7 +788,7 @@ class Host extends React.Component {
   }
 
   cambio2() {
-    console.log("cambio2")
+   
     this.mecanismoCambio(2)
     if (this.v2.cambio === 1) {
       this.osc2.frequency.rampTo(this.v2.notaGanadora,Math.random()* 10)
@@ -806,7 +801,7 @@ class Host extends React.Component {
   }
 
   cambio3() {
-    console.log("cambio3")
+   
     this.mecanismoCambio(3)
     if (this.v3.cambio === 1) {
       this.osc3.frequency.rampTo(this.v3.notaGanadora,Math.random()* 10)
@@ -819,7 +814,7 @@ class Host extends React.Component {
   }
 
   cambio4() {
-    console.log("cambio4")
+   
     this.mecanismoCambio(4)
     if (this.v4.cambio === 1) {
       this.osc4.frequency.rampTo(this.v4.notaGanadora,Math.random()* 10)
@@ -832,7 +827,7 @@ class Host extends React.Component {
   }
 
   cambio5() {
-    console.log("cambio5")
+    
     this.mecanismoCambio(5)
     if (this.v5.cambio === 1) {
       this.osc5.frequency.rampTo(this.v5.notaGanadora,Math.random()* 10)
@@ -845,7 +840,7 @@ class Host extends React.Component {
   }
 
   cambio6() {
-    console.log("cambio6")
+  
     this.mecanismoCambio(6)
     if (this.v6.cambio === 1) {
       this.osc6.frequency.rampTo(this.v6.notaGanadora,Math.random()* 10)
@@ -858,9 +853,9 @@ class Host extends React.Component {
   }
 
   botonAudio(){
-    console.log("funciona", audioContext)
+   
     if (audioContext === false) {
-      console.log("contextoAudio")
+     
       new Tone.Context()
       
       audioContext = true
@@ -889,7 +884,7 @@ class Host extends React.Component {
       this.puntosGanar = puntos
     })
 
-    socket.on("propuestaNota", (voz, nota, usuario, equipo) => {
+    socket.on("pNota", (voz, nota, usuario, equipo) => {
       let n = "v" + voz
       let index
       if (equipo === "orden") {
@@ -911,7 +906,7 @@ class Host extends React.Component {
           this[n].caos += 1
         }
       }
-      console.log("propuesta recibida", equipo, index, this[n].pOrden, this[n].pCaos)
+      
     })
     if((this.state.puntosCaos + this.state.puntosOrden)%2 === 0){
       return(
@@ -962,7 +957,7 @@ class Juez extends React.Component {
   votoOrden() {
     
     let equipo = "orden"
-    console.log("voto", equipo)
+    
     socket.emit("voto", equipo)
     this.finVotacion()
   }
@@ -970,19 +965,19 @@ class Juez extends React.Component {
   votoCaos() {
     
     let equipo = "caos"
-    console.log("voto", equipo)
+   
     socket.emit("voto", equipo)
     this.finVotacion()
   }
 
   votacion() {
-    console.log("hola")
+    
     this.setState({botonOrden : <div id = "divJuezOrden"><input type= "button" id='botonOrden' value={"Orden"}  onClick={this.votoOrden}></input></div>})
     this.setState({botonCaos : <div id = "divJuezCaos"><input type= "button" id="botonCaos" value={"Caos"} onClick={this.votoCaos}></input></div>})
   }
 
   finVotacion() {
-    console.log("adios")
+    
     this.setState({botonOrden: "", botonCaos: ""})
     this.votosID = setTimeout(()=> this.votacion(), 15000)
   }
@@ -1013,7 +1008,7 @@ class Juez extends React.Component {
 class Juego extends React.Component {
   constructor(props){
     super(props)
-    console.log(juegoIniciado)
+    
     this.state = {juegoIniciado : false, fin: false, equipoGanador: ""}
     this.reinicio = this.reinicio.bind(this)
     
@@ -1035,11 +1030,11 @@ class Juego extends React.Component {
       this.setState({fin: true, equipoGanador: equipo})
     })
     socket.on("iniciando", (arg)=> {
-      console.log("argumento", arg)
+      
       juegoIniciado = arg
       ronda = 1
       this.setState({juegoIniciado: juegoIniciado})
-      console.log(this.state.juegoIniciado)
+      
     })
     if (this.state.fin === true) {
       this.resetID = setTimeout(()=> this.reinicio(), 30000)
