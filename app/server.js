@@ -24,7 +24,6 @@ app.get('*', (req, res) => {
 // Inicialización del servidor
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
-    perMessageDeflate: false,
     
     cors: {
         origin: "http://www.redobleonada.com/",
@@ -47,11 +46,14 @@ let hayCapCaos = false
 let hayCapOrden = false
 let hayJuez = false
 
+
 // helperfunction
 function getKeyByValue(object, value) {
   return Object.keys(object).find(key => object[key] === value);
 }
-
+function vozArm(id, voz) {
+  io.to(id).emit("vozArm", voz)
+}
 // Cuando se conecta un jugador 
 io.on("connection", (socket) => {
   //variables que se establecen en conexión
@@ -260,7 +262,7 @@ io.on("connection", (socket) => {
       console.log("vozmas", jugador, voz, jugavoz, equipo)
       let id = getKeyByValue(usuarios, jugador)
       console.log("id", id)
-      throttle(io.to(id).emit("vozArm", voz), 100)
+      throttle(vozArm(id, voz), 100)
       if (equipo === "caos") {
         socket.to(idCapOrden).emit("enemigos", voz, jugavoz)
       } 
@@ -271,7 +273,7 @@ io.on("connection", (socket) => {
     socket.on("vozmenos", (jugador, voz, jugavoz, equipo)=>{
       console.log("vozcambio", jugador, voz, jugavoz, equipo)
       let id = getKeyByValue(usuarios, jugador)
-      throttle(io.to(id).emit("vozArm", 0),100)
+      throttle(vozArm(id, 0),100)
       if (equipo === "caos") {
         socket.to(idCapOrden).emit("enemigos", voz, jugavoz)
       } 

@@ -675,6 +675,8 @@ class Host extends React.Component {
       this.osc4.start()
       this.osc5.start()
       this.osc6.start()
+
+      this.emitirNota(voz) = this.emitirNota(voz).bind(this)
     
       
 
@@ -683,7 +685,9 @@ class Host extends React.Component {
   }
 
   
-
+  emitirNota(voz) {
+    socket.emit("cambiarNota", voz, this[n].notaGanadora)
+  }
   /// QUIZAS cambiar la frecuencia de update en función del numero de jugadores
   formula() {
     return(Math.round(((Math.random()+ 0.2) * 10000)) + Math.round(((Math.random() + 0.3) * 5000)))
@@ -840,7 +844,7 @@ class Host extends React.Component {
 
    
 
-    throttle(socket.emit("cambiarNota", voz, this[n].notaGanadora), 1000)
+    throttle(this.emitirNota(voz), 1000)
     let notaG = this[n].notaGanadora
     let cambioNota
     if (notaInicial !== notaG) {
