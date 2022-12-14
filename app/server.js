@@ -24,7 +24,7 @@ app.get('*', (req, res) => {
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
     cors: {
-        origin: "https://redoble-o-nada.herokuapp.com/",
+        origin: "http://www.redobleonada.com/",
         //origin: "*",
     },
 });
@@ -301,6 +301,11 @@ io.on("connection", (socket) => {
       io.to(idHost).emit("punto", equipo)
     })
 
+    socket.on("puntos", ()=>{
+      let puntos = equipoImparcial.length * 10
+
+      io.to(idHost).emit("puntosGanar", puntos)
+    })
     socket.on("fin", (equipo)=>
     io.emit("fin", equipo))
 });

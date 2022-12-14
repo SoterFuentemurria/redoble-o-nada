@@ -21,7 +21,7 @@ import icon from './images/favicon.ico';
 
 
 // Inicializamos el socket
-const URL = "https://redoble-o-nada.herokuapp.com";
+const URL = "http://www.redobleonada.com/";
 //const URL = "http://localhost:5000/";
 const socket = io(URL, { autoConnect: false });
 
@@ -73,7 +73,7 @@ class LoginControl extends React.Component {
     // si el usuario no ha elegido nombre, se renderiza el formulario
     if (userNameAlreadyPicked === false) {
     return (
-      <div>
+      <div id= "divLogin">
         <div id= "divTitulo"><h1 id="tituloJuego">Redoble o Nada</h1></div>
           
       <div id="flexForm">
@@ -501,11 +501,19 @@ class Capitan extends React.Component{
 class Combatiente extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { voz : 0 , n1 : "C4" , n2 :"C4" , n3 : "C4" , n4 : "C4" , n5 : "C4" , n6: "C4", mensaje: "", value: "" };
+    this.state = { voz : 0 , n1 : <h2 id = "normal">C4</h2> , n2 : <h2 id = "normal">C4</h2>  , n3 :  <h2 id = "normal">C4</h2>  , n4 :  <h2 id = "normal">C4</h2>  , n5 :  <h2 id = "normal">C4</h2> , n6:  <h2 id = "normal">C4</h2> , mensaje: "", value: "" };
     this.nombreVoz = this.nombreVoz.bind(this)  
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this) 
     this.init = true
+    this.n1 = "C4"
+    this.n2 = "C4"
+    this.n3 = "C4"
+    this.n4 = "C4"
+    this.n5 = "C4"
+    this.n6 = "C4"
+    
+    
     
   }
 
@@ -514,9 +522,12 @@ class Combatiente extends React.Component {
     
     if (this.state.voz === 0) {
       this.setState({mensaje: "Estás en la reserva"}) 
+      this.setState({n1:<h2 id= "normal">{this.n1}</h2>, n2: <h2 id= "normal">{this.n2}</h2>,  n3: <h2 id= "normal">{this.n3}</h2>,  n4: <h2 id= "normal">{this.n4}</h2>,  n5: <h2 id= "normal">{this.n5}</h2> ,n6:<h2 id= "normal">{this.n6}</h2> })
     }
     else {
+      let n = "n" + this.state.voz
       this.setState({mensaje: "Estás en la voz " + this.state.voz})
+      this.setState({[n] : <h2 id= "resaltado">{this[n]}</h2>})
     }
   }
 
@@ -545,7 +556,12 @@ class Combatiente extends React.Component {
 
     socket.on("cambioNota", (voz, nota)=> {
       let n = "n" + voz
-      this.setState({[n] : nota})
+      this[n] = nota
+      if (voz === this.state.voz){
+        this.setState({[n] : <h2 id = "resaltado">{nota}</h2>})
+      } else {
+      this.setState({[n] : <h2 id = "normal">{nota}</h2>})}
+      
     })
 
     if (this.init === true){
@@ -556,16 +572,16 @@ class Combatiente extends React.Component {
     // Algun tipo de función para que coloree nuestra nota
     return(
       <div>
-        <h1>Armonia</h1>
-        <h2>Conjunto de notas: {this.state.n1} {this.state.n2} {this.state.n3} {this.state.n4} {this.state.n5} {this.state.n6} </h2> 
-        <p>{this.state.mensaje}</p>
+        <h1 id= "armonia">Armonía</h1>
+        <div id= "flexComb"><div id = "displayNotasComb"><h2 id = "conjuntoNotas">Conjunto de notas:</h2> <div id = "espaciadoNotas">{this.state.n1} {this.state.n2} {this.state.n3} {this.state.n4} {this.state.n5} {this.state.n6}</div></div> 
+        <div id = "cuerpoComb"><p id = "mensajeReserva">{this.state.mensaje}</p>
         
-          <label>
-            Propon una nota
-          <input type= "text" value={this.state.value} onChange={this.handleChange}></input>
+          <label id = "labelPropuesta">
+            Propón una nota 
+          <input type= "text" id= "inputPropuesta" value={this.state.value} onChange={this.handleChange}></input>
           </label>
-          <button type = "button" onClick={this.handleSubmit} >Click!</button> 
-        
+          <button type = "button" id = "botonPropuesta" onClick={this.handleSubmit} >Enviar!</button> 
+        </div></div>
       </div>
     )
   }
@@ -576,6 +592,7 @@ class Combatiente extends React.Component {
 class Host extends React.Component {
   constructor(props){
     super(props)
+    socket.emit("puntos")
     this.puntosGanar = 10
     this.inicio = new Date()
     this.hora = Math.round((Date.now() - this.inicio)/1000)
@@ -642,6 +659,7 @@ class Host extends React.Component {
 
   }
 
+  
 
   /// QUIZAS cambiar la frecuencia de update en función del numero de jugadores
   formula() {
@@ -865,6 +883,10 @@ class Host extends React.Component {
           socket.emit("fin", "orden")
         }
       }
+    })
+
+    socket.on("puntosGanar", (puntos)=> {
+      this.puntosGanar = puntos
     })
 
     socket.on("propuestaNota", (voz, nota, usuario, equipo) => {

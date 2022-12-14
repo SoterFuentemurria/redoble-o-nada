@@ -664,8 +664,122 @@ align-content: space-between;}
 
     }
 
-   
+    #conjuntoNotas {
+        margin-bottom: 12vh;
     }
+    #normal {
+        margin-bottom: 12vh;
+    }
+    #flexComb {
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+    } 
+    #resaltado {
+        margin-bottom: 12vh;
+        color: #c50626;
+        animation: cambioVoz;
+        animation-duration: 0.3s;
+        animation-timing-function: ease-in-out;
+    }
+
+    @keyframes cambioVoz {
+        from{color:#FFA400; transform: scale(1.2);};
+        to{color:#c50626; transform: scale(1);}
+    }
+
+    #displayNotasComb {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        height: 15%;
+        
+    }
+
+    #espaciadoNotas {
+        width: 50%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+   #cuerpoComb {
+    height: 75%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: center;
+   }
+    
+   #labelPropuesta { 
+    position: relative;
+    top: -10%;
+    width: 60vh;
+    font-family: 'Helvetica Neue', sans-serif; 
+    font-size: 6vh; 
+    line-height: 6vh;
+    text-align: center;
+    }
+    
+    #inputPropuesta { 
+        width: 60vh;
+        height: 6vh;
+       margin-top: 4vh;
+       background-color: transparent;
+       border: none;
+       border-bottom: 2px solid #111 ;
+       text-align: center;
+       transition: box-shadow .3s ease-in-out;
+       
+    
+    }
+
+#inputPropuesta:hover, #inputPropuesta:active {
+    box-shadow: inset 60vh 0 0 0 rgb(255, 176, 112);
+}
+
+#inputPropuesta:focus, #inputPropuesta:active {
+    outline: none;
+    box-shadow: inset 60vh 0 0 0 rgb(255, 176, 112);
+ 
+}
+
+#botonPropuesta { 
+    margin: 4vh;
+    position:relative;
+    top: -10%;
+    background-color: transparent;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #111;
+    padding: 2vh, 4vh;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 8vh;
+    align-self: center;
+    justify-self: flex-end;
+    transition: box-shadow .3s ease-in-out, font-size .3s ease-in-out, margin .3s ease-in-out ;
+}
+#botonPropuesta:hover, #botonPropuesta:active {
+    box-shadow: inset 40vh 0 0 0 #ffb070;
+    font-size: 10vh;
+   
+}
+#botonPropuesta:focus, #botonPropuesta:active {
+    box-shadow: inset 40vh 0 0 0 #ffb070;
+    font-size: 10vh;
+   
+}
+
+#mensajeReserva {
+    position: relative;
+    top: -30%;
+    font-size: 6vh;
+}
+
+   
+    } 
 
     /*Movil vertical*/
     
@@ -767,7 +881,7 @@ align-content: space-between;}
         width: 40vh;
         height: 0%;
         margin: auto;
-        margin-top: 10%;
+        margin-top: 15%;
         padding: 1%;
         text-align: center;
         border-style: solid;
@@ -775,10 +889,15 @@ align-content: space-between;}
         border-color: #111;
         font-size: 5vh;
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;}
-        
+        #divLogin {
+            flex:column;
+            justify-content: center;
+        }
         #flexForm {
+            margin:auto;
             height: 60vh;
             padding: 2vh;
+            width: 75%;
             display: flex;
             flex-direction: column;
             justify-content: space-around;
@@ -798,6 +917,7 @@ align-content: space-between;}
            background-color: transparent;
            border: none;
            border-bottom: 2px solid #111 ;
+           margin-bottom: 2vh;
         
         }
 
@@ -956,6 +1076,132 @@ align-content: space-between;}
         
     
         }
+        #armonia {
+            margin-top:8vh;
+            font-size: 8vh;
+        }
+        #conjuntoNotas {
+            margin-bottom: 4vh;
+            font-size: 5vh;
+            line-height: 4vh;
+        }
+        #normal {
+            margin-bottom: 12vh;
+            font-size: 4vh;
+        }
+        #flexComb {
+            
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            
+        } 
+        #resaltado {
+            margin-bottom: 12vh;
+            font-size: 5vh;
+            color: #c50626;
+            animation: cambioVoz;
+            animation-duration: 0.3s;
+            animation-timing-function: ease-in-out;
+        }
+    
+        @keyframes cambioVoz {
+            from{color:#FFA400; transform: scale(1.2);};
+            to{color:#c50626; transform: scale(1);}
+        }
+    
+        #displayNotasComb {
+            
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-wrap: wrap;
+            height: 15%;
+            
+        }
+    
+        #espaciadoNotas {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+        }
+       #cuerpoComb {
+        height: 75%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-content: center;
+       }
+        
+       #labelPropuesta { 
+        position: relative;
+        top: -10%;
+        width: 60vh;
+        font-family: 'Helvetica Neue', sans-serif; 
+        font-size: 4vh; 
+        line-height: 6vh;
+        text-align: center;
+        }
+        
+        #inputPropuesta { 
+            width: 40vh;
+            height: 6vh;
+            font-size: 4vh;
+           margin-top: 4vh;
+           background-color: transparent;
+           border: none;
+           border-bottom: 2px solid #111 ;
+           text-align: center;
+           transition: box-shadow .3s ease-in-out;
+           
+        
+        }
+    
+    #inputPropuesta:hover, #inputPropuesta:active {
+        box-shadow: inset 60vh 0 0 0 rgb(255, 176, 112);
+    }
+    
+    #inputPropuesta:focus, #inputPropuesta:active {
+        outline: none;
+        box-shadow: inset 60vh 0 0 0 rgb(255, 176, 112);
+     
+    }
+    
+    #botonPropuesta { 
+        margin: 4vh;
+        position:relative;
+        top: -10%;
+        background-color: transparent;
+        border-width: 2px;
+        border-style: solid;
+        border-color: #111;
+        padding: 2vh, 4vh;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 4vh;
+        align-self: center;
+        justify-self: flex-end;
+        transition: box-shadow .3s ease-in-out, font-size .3s ease-in-out, margin .3s ease-in-out ;
+    }
+    #botonPropuesta:hover, #botonPropuesta:active {
+        box-shadow: inset 40vh 0 0 0 #ffb070;
+        font-size: 10vh;
+       
+    }
+    #botonPropuesta:focus, #botonPropuesta:active {
+        box-shadow: inset 40vh 0 0 0 #ffb070;
+        font-size: 10vh;
+       
+    }
+    
+    #mensajeReserva {
+        position: relative;
+        top: -30%;
+        font-size: 4vh;
+    }
         
     }
         
