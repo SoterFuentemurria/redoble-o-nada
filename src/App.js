@@ -1,4 +1,4 @@
-
+"use strict";
 // To DO
 
 // Limpiar ódigo!!!!!
@@ -694,6 +694,7 @@ class Host extends React.Component {
   }
   componentDidMount(){
     socket.on("punto",(equipo)=>{
+      
       if (equipo === "caos") {
         let n = this.state.puntosCaos + 1
         this.setState({puntosCaos: n})
@@ -744,12 +745,12 @@ class Host extends React.Component {
 
     
 
-    this.cambioID1 = setInterval(()=> this.cambio1(), this.intervalo1)
-    this.cambioID2 = setInterval(()=> this.cambio2(), this.intervalo2)
-    this.cambioID3 = setInterval(()=> this.cambio3(), this.intervalo3)
-    this.cambioID4 = setInterval(()=> this.cambio4(), this.intervalo4)
-    this.cambioID5 = setInterval(()=> this.cambio5(), this.intervalo5)
-    this.cambioID6 = setInterval(()=> this.cambio6(), this.intervalo6)
+    this.cambioID1 = setInterval(()=> this.cambio1(), 5000)
+    this.cambioID2 = setInterval(()=> this.cambio2(), 5000)
+    this.cambioID3 = setInterval(()=> this.cambio3(), 5000)
+    this.cambioID4 = setInterval(()=> this.cambio4(), 5000)
+    this.cambioID5 = setInterval(()=> this.cambio5(), 5000)
+    this.cambioID6 = setInterval(()=> this.cambio6(), 5000)
   }
   }
   
