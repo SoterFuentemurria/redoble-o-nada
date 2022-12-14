@@ -844,7 +844,7 @@ class Host extends React.Component {
 
    
 
-    throttle(this.emitirNota(voz,n), 1000)
+    throttle(this.emitirNota.bind(this,voz,n), 1000)
     let notaG = this[n].notaGanadora
     let cambioNota
     if (notaInicial !== notaG) {
