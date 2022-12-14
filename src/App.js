@@ -136,6 +136,10 @@ class HostLobby extends React.Component {
     this.state = {juegoIniciado: false, equipoCaos: [], equipoOrden: [], cuentaActivada: false, cuenta: 10}
     this.handleClick = this.handleClick.bind(this);
     this.tick = this.tick.bind(this)
+    
+  }
+
+  componentDidMount() {
     socket.on("equipoOrden", (arg)=> {
       this.setState({equipoOrden : arg})
     })
@@ -268,36 +272,38 @@ class Capitan extends React.Component{
    this.voz5 = []
    this.voz6 = []
 
-   socket.on("enemigos", (voz, jugavoz)=> {
-      
-     
-    let enemigos = "enemigos" + voz
- 
-    let numero = jugavoz.length
-  
-    this.setState({[enemigos]: numero})
-  })
-
-
-  socket.on("CapEquipo", (arg)=>{
-    this.equipo = arg
    
-    
-  })
-
-  socket.on("reservas", (arg)=> {
-    this.reserva = arg
-    this.setState({reserva: arg})
-    
-  })
-
-  socket.on("cambioNota", (voz, nota)=>{
-    let n = "n" + voz
-    this.setState({[n] : nota})
-  })
   }
   
-
+  componentDidMount() {
+    socket.on("enemigos", (voz, jugavoz)=> {
+      
+     
+      let enemigos = "enemigos" + voz
+   
+      let numero = jugavoz.length
+    
+      this.setState({[enemigos]: numero})
+    })
+  
+  
+    socket.on("CapEquipo", (arg)=>{
+      this.equipo = arg
+     
+      
+    })
+  
+    socket.on("reservas", (arg)=> {
+      this.reserva = arg
+      this.setState({reserva: arg})
+      
+    })
+  
+    socket.on("cambioNota", (voz, nota)=>{
+      let n = "n" + voz
+      this.setState({[n] : nota})
+    })
+  }
   // Al clickar el botón 
   handleMas(i) {
     let r = Math.floor(Math.random() * (this.state.reserva.length))
@@ -518,6 +524,11 @@ class Combatiente extends React.Component {
     this.n5 = "C4"
     this.n6 = "C4"
 
+   
+    
+  }
+
+  componentDidMount() {
     socket.on("vozArm", (arg)=> {
       
       this.setState({voz: arg})
@@ -534,7 +545,6 @@ class Combatiente extends React.Component {
       this.setState({[n] : <h2 id = "normal">{nota}</h2>})}
       
     })
-    
     
     
   }
@@ -660,51 +670,7 @@ class Host extends React.Component {
       this.osc5.start()
       this.osc6.start()
     
-      socket.on("punto",(equipo)=>{
-        if (equipo === "caos") {
-          let n = this.state.puntosCaos + 1
-          this.setState({puntosCaos: n})
-          if (n === this.puntosGanar) {
-            socket.emit("fin", "caos")
-          }
-        }
-        if (equipo === "orden") {
-          let n = this.state.puntosOrden + 1
-          this.setState({puntosOrden: n})
-          if (n === this.puntosGanar) {
-            socket.emit("fin", "orden")
-          }
-        }
-      })
-  
-      socket.on("puntosGanar", (puntos)=> {
-        this.puntosGanar = puntos
-      })
-  
-      socket.on("pNota", (voz, nota, usuario, equipo) => {
-        let n = "v" + voz
-        let index
-        if (equipo === "orden") {
-        index = this[n].uOrden.indexOf(usuario)
-        if (index > -1) {
-          this[n].pOrden[index] = nota
-        } else {
-          this[n].pOrden.push(nota)
-          this[n].uOrden.push(usuario)
-          this[n].orden += 1
-        }} 
-        if (equipo === "caos"){
-          index = this[n].uCaos.indexOf(usuario)
-          if (index > -1) {
-            this[n].pCaos[index] = nota
-          } else {
-            this[n].pCaos.push(nota)
-            this[n].uCaos.push(usuario)
-            this[n].caos += 1
-          }
-        }
-        
-      })
+      
 
    
 
@@ -717,7 +683,51 @@ class Host extends React.Component {
     return(Math.round(((Math.random()+ 0.2) * 10000)) + Math.round(((Math.random() + 0.3) * 5000)))
   }
   componentDidMount(){
-  
+    socket.on("punto",(equipo)=>{
+      if (equipo === "caos") {
+        let n = this.state.puntosCaos + 1
+        this.setState({puntosCaos: n})
+        if (n === this.puntosGanar) {
+          socket.emit("fin", "caos")
+        }
+      }
+      if (equipo === "orden") {
+        let n = this.state.puntosOrden + 1
+        this.setState({puntosOrden: n})
+        if (n === this.puntosGanar) {
+          socket.emit("fin", "orden")
+        }
+      }
+    })
+
+    socket.on("puntosGanar", (puntos)=> {
+      this.puntosGanar = puntos
+    })
+
+    socket.on("pNota", (voz, nota, usuario, equipo) => {
+      let n = "v" + voz
+      let index
+      if (equipo === "orden") {
+      index = this[n].uOrden.indexOf(usuario)
+      if (index > -1) {
+        this[n].pOrden[index] = nota
+      } else {
+        this[n].pOrden.push(nota)
+        this[n].uOrden.push(usuario)
+        this[n].orden += 1
+      }} 
+      if (equipo === "caos"){
+        index = this[n].uCaos.indexOf(usuario)
+        if (index > -1) {
+          this[n].pCaos[index] = nota
+        } else {
+          this[n].pCaos.push(nota)
+          this[n].uCaos.push(usuario)
+          this[n].caos += 1
+        }
+      }
+      
+    })
     if (ronda === 1){
     this.timerID = setInterval(()=> this.tick(), 1000)
 
@@ -1020,6 +1030,10 @@ class Juego extends React.Component {
     
     this.state = {juegoIniciado : false, fin: false, equipoGanador: ""}
     this.reinicio = this.reinicio.bind(this)
+   
+    
+  }
+  componentDidMount(){
     socket.on("fin", (equipo)=>{  
       this.setState({fin: true, equipoGanador: equipo})
     })
@@ -1030,9 +1044,7 @@ class Juego extends React.Component {
       this.setState({juegoIniciado: juegoIniciado})
       
     })
-    
   }
-
   reinicio() {
     juegoIniciado = false
   }
