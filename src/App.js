@@ -685,7 +685,7 @@ class Host extends React.Component {
   }
 
   
-  emitirNota(voz) {
+  emitirNota(voz, n) {
     socket.emit("cambiarNota", voz, this[n].notaGanadora)
   }
   /// QUIZAS cambiar la frecuencia de update en función del numero de jugadores
@@ -844,7 +844,7 @@ class Host extends React.Component {
 
    
 
-    throttle(this.emitirNota(voz), 1000)
+    throttle(this.emitirNota(voz,n), 1000)
     let notaG = this[n].notaGanadora
     let cambioNota
     if (notaInicial !== notaG) {
