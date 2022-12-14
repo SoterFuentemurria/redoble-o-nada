@@ -845,7 +845,7 @@ class Host extends React.Component {
 
    
 
-    throttle(this.emitirNota.bind(this,voz,n), 1000)
+    throttle(function (voz, n) {socket.emit("cambiarNota", voz, this[n].notaGanadora)}, 1000)
     let notaG = this[n].notaGanadora
     let cambioNota
     if (notaInicial !== notaG) {

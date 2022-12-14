@@ -51,6 +51,7 @@ let hayJuez = false
 function getKeyByValue(object, value) {
   return Object.keys(object).find(key => object[key] === value);
 }
+
 function vozArm(id, voz) {
   io.to(id).emit("vozArm", voz)
 }
@@ -262,7 +263,10 @@ io.on("connection", (socket) => {
       console.log("vozmas", jugador, voz, jugavoz, equipo)
       let id = getKeyByValue(usuarios, jugador)
       console.log("id", id)
-      throttle(vozArm(id, voz), 100)
+      throttle(function (id, voz) {
+        io.to(id).emit("vozArm", voz)
+      }, 100)
+      
       if (equipo === "caos") {
         socket.to(idCapOrden).emit("enemigos", voz, jugavoz)
       } 
@@ -273,7 +277,9 @@ io.on("connection", (socket) => {
     socket.on("vozmenos", (jugador, voz, jugavoz, equipo)=>{
       console.log("vozcambio", jugador, voz, jugavoz, equipo)
       let id = getKeyByValue(usuarios, jugador)
-      throttle(vozArm(id, 0),100)
+      throttle(function (id, voz) {
+        io.to(id).emit("vozArm", voz)
+      }, 100)
       if (equipo === "caos") {
         socket.to(idCapOrden).emit("enemigos", voz, jugavoz)
       } 
