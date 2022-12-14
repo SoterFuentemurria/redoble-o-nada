@@ -746,12 +746,7 @@ class Host extends React.Component {
 
     
 
-    this.cambioID1 = setInterval(()=> this.cambio1(), 5000)
-    this.cambioID2 = setInterval(()=> this.cambio2(), 5000)
-    this.cambioID3 = setInterval(()=> this.cambio3(), 5000)
-    this.cambioID4 = setInterval(()=> this.cambio4(), 5000)
-    this.cambioID5 = setInterval(()=> this.cambio5(), 5000)
-    this.cambioID6 = setInterval(()=> this.cambio6(), 5000)
+    
   }
   }
   
@@ -759,20 +754,21 @@ class Host extends React.Component {
 
   componentWillUnmount(){
     clearInterval(this.timerID)
-    clearInterval(this.cambioID1)
-    clearInterval(this.cambioID2)
-    clearInterval(this.cambioID3)
-    clearInterval(this.cambioID4)
-    clearInterval(this.cambioID5)
-    clearInterval(this.cambioID6)
+    
 
   }
 
   tick(){
     this.hora = Math.round((Date.now() - this.inicio)/1000)
+    this.cambio1()
+    this.cambio2()
+    this.cambio3()
+    this.cambio4()
+    this.cambio5()
+    this.cambio6()
     
     this.setState({tiempo : this.hora})
-    global.gc()
+    
   }
 
   // BUG en esta función. ordenar el código. hacerlo mas pequeño y eficiente si se puede
