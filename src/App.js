@@ -1,4 +1,4 @@
-"use strict";
+
 // To DO
 
 // Limpiar ódigo!!!!!
@@ -17,6 +17,7 @@ import "./App.css";
 import * as Tone from 'tone';
 import icon from './images/favicon.ico';
 var throttle = require("lodash/throttle");
+
 
 
 
@@ -771,6 +772,7 @@ class Host extends React.Component {
     this.hora = Math.round((Date.now() - this.inicio)/1000)
     
     this.setState({tiempo : this.hora})
+    global.gc()
   }
 
   // BUG en esta función. ordenar el código. hacerlo mas pequeño y eficiente si se puede
