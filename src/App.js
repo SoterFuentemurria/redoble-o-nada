@@ -676,7 +676,7 @@ class Host extends React.Component {
       this.osc5.start()
       this.osc6.start()
 
-      this.emitirNota(voz) = this.emitirNota(voz).bind(this)
+      this.emitirNota = this.emitirNota.bind(this)
     
       
 
