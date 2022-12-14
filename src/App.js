@@ -840,7 +840,7 @@ class Host extends React.Component {
 
    
 
-    socket.emit("cambiarNota", voz, this[n].notaGanadora)
+    throttle(socket.emit("cambiarNota", voz, this[n].notaGanadora), 1000)
     let notaG = this[n].notaGanadora
     let cambioNota
     if (notaInicial !== notaG) {
