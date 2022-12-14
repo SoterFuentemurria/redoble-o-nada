@@ -712,6 +712,7 @@ class Host extends React.Component {
 
     socket.on("pNota", (voz, nota, usuario, equipo) => {
       let n = "v" + voz
+      console.log("pNota", voz, nota, usuario, equipo)
       let index
       if (equipo === "orden") {
       index = this[n].uOrden.indexOf(usuario)
@@ -1046,7 +1047,7 @@ class Juego extends React.Component {
     
   }
   componentDidMount(){
-    socket.on("fin", (equipo)=>{  
+    socket.on("terminado", (equipo)=>{  
       this.setState({fin: true, equipoGanador: equipo})
     })
     socket.on("iniciando", (arg)=> {

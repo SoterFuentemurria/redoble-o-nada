@@ -23,6 +23,8 @@ app.get('*', (req, res) => {
 // Inicialización del servidor
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
+    perMessageDeflate: false,
+    transports: ["websocket"],
     cors: {
         origin: "http://www.redobleonada.com/",
         //origin: "*",
@@ -308,7 +310,7 @@ io.on("connection", (socket) => {
       io.to(idHost).emit("puntosGanar", puntos)
     })
     socket.on("fin", (equipo)=>
-    io.emit("fin", equipo))
+    io.emit("terminado", equipo))
 });
 
 
