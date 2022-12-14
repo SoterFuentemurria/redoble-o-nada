@@ -584,12 +584,7 @@ class Combatiente extends React.Component {
 
   render() {
     
-    
-
-    if (this.init === true){
-      this.nombreVoz()
-      this.init = false
-    }
+  
   
     // Algun tipo de función para que coloree nuestra nota
     return(
