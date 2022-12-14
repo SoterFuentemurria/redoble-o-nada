@@ -51,6 +51,7 @@ class LoginControl extends React.Component {
     this.state = {value: '', numUsuarios: 0, equipo: "", clase: ""};
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    
   }
   // handleadores de eventos, actualizan el estado al escribir en el formulario y al enviarlo
   handleChange(event) {    this.setState({value: event.target.value});  }
@@ -68,7 +69,7 @@ class LoginControl extends React.Component {
     socket.emit("username", socket.auth, (response) => {console.log(response)})
     socket.emit("iniciado?")
   }
-
+  
   render() {
     // si el usuario no ha elegido nombre, se renderiza el formulario
     if (userNameAlreadyPicked === false) {
@@ -135,6 +136,13 @@ class HostLobby extends React.Component {
     this.state = {juegoIniciado: false, equipoCaos: [], equipoOrden: [], cuentaActivada: false, cuenta: 10}
     this.handleClick = this.handleClick.bind(this);
     this.tick = this.tick.bind(this)
+    socket.on("equipoOrden", (arg)=> {
+      this.setState({equipoOrden : arg})
+    })
+    // Lo mismo en equipo Caos
+    socket.on("equipoCaos", (arg)=> {
+      this.setState({equipoCaos : arg})
+    })
   }
 
   // Evento de clickar en el botón. Inicia el juego en el server
@@ -172,13 +180,7 @@ class HostLobby extends React.Component {
 
   render() {
     // evento equipo orden, actualiza el estado del componente. Array jugadores equipo Orden
-    socket.on("equipoOrden", (arg)=> {
-      this.setState({equipoOrden : arg})
-    })
-    // Lo mismo en equipo Caos
-    socket.on("equipoCaos", (arg)=> {
-      this.setState({equipoCaos : arg})
-    })
+    
     // El host avisa de que esta activo, el server le manda la info para displayear, sirve por si
     // se desconecta. Entra, recupera la info del server, la muestra y como si nada.
     socket.emit("hostActivo")
@@ -265,6 +267,34 @@ class Capitan extends React.Component{
    this.voz4 = []
    this.voz5 = []
    this.voz6 = []
+
+   socket.on("enemigos", (voz, jugavoz)=> {
+      
+     
+    let enemigos = "enemigos" + voz
+ 
+    let numero = jugavoz.length
+  
+    this.setState({[enemigos]: numero})
+  })
+
+
+  socket.on("CapEquipo", (arg)=>{
+    this.equipo = arg
+   
+    
+  })
+
+  socket.on("reservas", (arg)=> {
+    this.reserva = arg
+    this.setState({reserva: arg})
+    
+  })
+
+  socket.on("cambioNota", (voz, nota)=>{
+    let n = "n" + voz
+    this.setState({[n] : nota})
+  })
   }
   
 
@@ -291,6 +321,7 @@ class Capitan extends React.Component{
     this.reserva.push(desplazado)
     let arg = this.reserva
     this.setState({reserva: arg, [voz]: arr})
+
     
     // ENVIAR info a server. Nombre usuario. En el server se actualiza para enemigos
     socket.emit("vozmenos", desplazado, i, arr, this.equipo)
@@ -314,33 +345,7 @@ class Capitan extends React.Component{
 
   render(){
 
-    socket.on("enemigos", (voz, jugavoz)=> {
-      
-     
-      let enemigos = "enemigos" + voz
    
-      let numero = jugavoz.length
-    
-      this.setState({[enemigos]: numero})
-    })
-
-
-    socket.on("CapEquipo", (arg)=>{
-      this.equipo = arg
-     
-      
-    })
-
-    socket.on("reservas", (arg)=> {
-      this.reserva = arg
-      this.setState({reserva: arg})
-      
-    })
-
-    socket.on("cambioNota", (voz, nota)=>{
-      let n = "n" + voz
-      this.setState({[n] : nota})
-    })
 
     /*
     ronda is integer
@@ -512,6 +517,23 @@ class Combatiente extends React.Component {
     this.n4 = "C4"
     this.n5 = "C4"
     this.n6 = "C4"
+
+    socket.on("vozArm", (arg)=> {
+      
+      this.setState({voz: arg})
+      this.nombreVoz()
+    })
+    
+
+    socket.on("cambioNota", (voz, nota)=> {
+      let n = "n" + voz
+      this[n] = nota
+      if (voz === this.state.voz){
+        this.setState({[n] : <h2 id = "resaltado">{nota}</h2>})
+      } else {
+      this.setState({[n] : <h2 id = "normal">{nota}</h2>})}
+      
+    })
     
     
     
@@ -545,22 +567,7 @@ class Combatiente extends React.Component {
 
   render() {
     
-    socket.on("vozArm", (arg)=> {
-      
-      this.setState({voz: arg})
-      this.nombreVoz()
-    })
     
-
-    socket.on("cambioNota", (voz, nota)=> {
-      let n = "n" + voz
-      this[n] = nota
-      if (voz === this.state.voz){
-        this.setState({[n] : <h2 id = "resaltado">{nota}</h2>})
-      } else {
-      this.setState({[n] : <h2 id = "normal">{nota}</h2>})}
-      
-    })
 
     if (this.init === true){
       this.nombreVoz()
@@ -652,6 +659,52 @@ class Host extends React.Component {
       this.osc4.start()
       this.osc5.start()
       this.osc6.start()
+    
+      socket.on("punto",(equipo)=>{
+        if (equipo === "caos") {
+          let n = this.state.puntosCaos + 1
+          this.setState({puntosCaos: n})
+          if (n === this.puntosGanar) {
+            socket.emit("fin", "caos")
+          }
+        }
+        if (equipo === "orden") {
+          let n = this.state.puntosOrden + 1
+          this.setState({puntosOrden: n})
+          if (n === this.puntosGanar) {
+            socket.emit("fin", "orden")
+          }
+        }
+      })
+  
+      socket.on("puntosGanar", (puntos)=> {
+        this.puntosGanar = puntos
+      })
+  
+      socket.on("pNota", (voz, nota, usuario, equipo) => {
+        let n = "v" + voz
+        let index
+        if (equipo === "orden") {
+        index = this[n].uOrden.indexOf(usuario)
+        if (index > -1) {
+          this[n].pOrden[index] = nota
+        } else {
+          this[n].pOrden.push(nota)
+          this[n].uOrden.push(usuario)
+          this[n].orden += 1
+        }} 
+        if (equipo === "caos"){
+          index = this[n].uCaos.indexOf(usuario)
+          if (index > -1) {
+            this[n].pCaos[index] = nota
+          } else {
+            this[n].pCaos.push(nota)
+            this[n].uCaos.push(usuario)
+            this[n].caos += 1
+          }
+        }
+        
+      })
 
    
 
@@ -863,51 +916,7 @@ class Host extends React.Component {
   }
 
   render(){
-    socket.on("punto",(equipo)=>{
-      if (equipo === "caos") {
-        let n = this.state.puntosCaos + 1
-        this.setState({puntosCaos: n})
-        if (n === this.puntosGanar) {
-          socket.emit("fin", "caos")
-        }
-      }
-      if (equipo === "orden") {
-        let n = this.state.puntosOrden + 1
-        this.setState({puntosOrden: n})
-        if (n === this.puntosGanar) {
-          socket.emit("fin", "orden")
-        }
-      }
-    })
-
-    socket.on("puntosGanar", (puntos)=> {
-      this.puntosGanar = puntos
-    })
-
-    socket.on("pNota", (voz, nota, usuario, equipo) => {
-      let n = "v" + voz
-      let index
-      if (equipo === "orden") {
-      index = this[n].uOrden.indexOf(usuario)
-      if (index > -1) {
-        this[n].pOrden[index] = nota
-      } else {
-        this[n].pOrden.push(nota)
-        this[n].uOrden.push(usuario)
-        this[n].orden += 1
-      }} 
-      if (equipo === "caos"){
-        index = this[n].uCaos.indexOf(usuario)
-        if (index > -1) {
-          this[n].pCaos[index] = nota
-        } else {
-          this[n].pCaos.push(nota)
-          this[n].uCaos.push(usuario)
-          this[n].caos += 1
-        }
-      }
-      
-    })
+    
     if((this.state.puntosCaos + this.state.puntosOrden)%2 === 0){
       return(
         <div>
@@ -1011,6 +1020,16 @@ class Juego extends React.Component {
     
     this.state = {juegoIniciado : false, fin: false, equipoGanador: ""}
     this.reinicio = this.reinicio.bind(this)
+    socket.on("fin", (equipo)=>{  
+      this.setState({fin: true, equipoGanador: equipo})
+    })
+    socket.on("iniciando", (arg)=> {
+      
+      juegoIniciado = arg
+      ronda = 1
+      this.setState({juegoIniciado: juegoIniciado})
+      
+    })
     
   }
 
@@ -1026,16 +1045,7 @@ class Juego extends React.Component {
 
   // si no se ha iniciado el juego renderiza todo el proceso de logeo
   render() {
-    socket.on("fin", (equipo)=>{  
-      this.setState({fin: true, equipoGanador: equipo})
-    })
-    socket.on("iniciando", (arg)=> {
-      
-      juegoIniciado = arg
-      ronda = 1
-      this.setState({juegoIniciado: juegoIniciado})
-      
-    })
+    
     if (this.state.fin === true) {
       this.resetID = setTimeout(()=> this.reinicio(), 30000)
       ronda = 0
