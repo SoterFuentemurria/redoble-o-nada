@@ -530,10 +530,16 @@ class Combatiente extends React.Component {
 
   componentDidMount() {
     socket.on("vozArm", (arg)=> {
-      
-      this.setState({voz: arg})
-      this.nombreVoz()
-    })
+      this.setState({voz: arg});
+      if (arg === 0) {
+        this.setState({mensaje: "Estás en la reserva"}) 
+        this.setState({n1:<h2 id= "normal">{this.n1}</h2>, n2: <h2 id= "normal">{this.n2}</h2>,  n3: <h2 id= "normal">{this.n3}</h2>,  n4: <h2 id= "normal">{this.n4}</h2>,  n5: <h2 id= "normal">{this.n5}</h2> ,n6:<h2 id= "normal">{this.n6}</h2> })
+      }
+      else {
+        let n = "n" + this.state.voz
+        this.setState({mensaje: "Estás en la voz " + arg})
+        this.setState({[n] : <h2 id= "resaltado">{this[n]}</h2>})
+    }})
     
 
     socket.on("cambioNota", (voz, nota)=> {

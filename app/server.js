@@ -256,6 +256,7 @@ io.on("connection", (socket) => {
     socket.on("vozmas", (jugador, voz, jugavoz, equipo)=>{
       console.log("vozmas", jugador, voz, jugavoz, equipo)
       let id = getKeyByValue(usuarios, jugador)
+      console.log("id", id)
       io.to(id).emit("vozArm", voz)
       if (equipo === "caos") {
         socket.to(idCapOrden).emit("enemigos", voz, jugavoz)
