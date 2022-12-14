@@ -24,7 +24,7 @@ app.get('*', (req, res) => {
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
     perMessageDeflate: false,
-    transports: ["websocket"],
+    
     cors: {
         origin: "http://www.redobleonada.com/",
         //origin: "*",
