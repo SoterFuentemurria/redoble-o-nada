@@ -256,7 +256,7 @@ io.on("connection", (socket) => {
     socket.on("vozmas", (jugador, voz, jugavoz, equipo)=>{
       console.log("vozmas", jugador, voz, jugavoz, equipo)
       let id = getKeyByValue(usuarios, jugador)
-      socket.to(id).emit("vozArm", voz)
+      io.to(id).emit("vozArm", voz)
       if (equipo === "caos") {
         socket.to(idCapOrden).emit("enemigos", voz, jugavoz)
       } 
@@ -267,7 +267,7 @@ io.on("connection", (socket) => {
     socket.on("vozmenos", (jugador, voz, jugavoz, equipo)=>{
       console.log("vozcambio", jugador, voz, jugavoz, equipo)
       let id = getKeyByValue(usuarios, jugador)
-      socket.to(id).emit("vozArm", 0)
+      io.to(id).emit("vozArm", 0)
       if (equipo === "caos") {
         socket.to(idCapOrden).emit("enemigos", voz, jugavoz)
       } 
