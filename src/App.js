@@ -23,7 +23,8 @@ var throttle = require("lodash/throttle");
 // Inicializamos el socket
 const URL = "http://www.redobleonada.com/";
 //const URL = "http://localhost:5000/";
-const socket = io(URL, { autoConnect: false });
+const socket = io(URL, { autoConnect: false,
+transports: ["websocket"] });
 
 // el socket, para cada evento, postea en la consola el evento y los argumentos
 socket.onAny((event, ...args) => {
