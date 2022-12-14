@@ -740,12 +740,12 @@ class Host extends React.Component {
 
     
 
-    this.cambioID1 = setTimeout(()=> this.cambio1(), this.intervalo1)
-    this.cambioID2 = setTimeout(()=> this.cambio2(), this.intervalo2)
-    this.cambioID3 = setTimeout(()=> this.cambio3(), this.intervalo3)
-    this.cambioID4 = setTimeout(()=> this.cambio4(), this.intervalo4)
-    this.cambioID5 = setTimeout(()=> this.cambio5(), this.intervalo5)
-    this.cambioID6 = setTimeout(()=> this.cambio6(), this.intervalo6)
+    this.cambioID1 = setInterval(()=> this.cambio1(), this.intervalo1)
+    this.cambioID2 = setInterval(()=> this.cambio2(), this.intervalo2)
+    this.cambioID3 = setInterval(()=> this.cambio3(), this.intervalo3)
+    this.cambioID4 = setInterval(()=> this.cambio4(), this.intervalo4)
+    this.cambioID5 = setInterval(()=> this.cambio5(), this.intervalo5)
+    this.cambioID6 = setInverval(()=> this.cambio6(), this.intervalo6)
   }
   }
   
@@ -753,6 +753,12 @@ class Host extends React.Component {
 
   componentWillUnmount(){
     clearInterval(this.timerID)
+    clearInterval(this.cambioID1)
+    clearInterval(this.cambioID2)
+    clearInterval(this.cambioID3)
+    clearInterval(this.cambioID4)
+    clearInterval(this.cambioID5)
+    clearInterval(this.cambioID6)
 
   }
 
@@ -853,9 +859,7 @@ class Host extends React.Component {
       let array = [1, this.v1.notaGanadora, this.state.tiempo]
       estructura.push(array)
     }
-    clearTimeout(this.cambioID1)
-    this.intervalo1 = this.formula()
-    this.cambioID1 = setTimeout(()=> this.cambio1(), this.intervalo1)
+  
   }
 
   cambio2() {
@@ -867,9 +871,7 @@ class Host extends React.Component {
       let array = [2, this.v2.notaGanadora, this.state.tiempo]
       estructura.push(array)
     }
-    clearTimeout(this.cambioID2)
-    this.intervalo2 = this.formula()
-    this.cambioID2 = setTimeout(()=> this.cambio2(), this.intervalo2)
+   
   }
 
   cambio3() {
@@ -881,9 +883,7 @@ class Host extends React.Component {
       let array = [3, this.v3.notaGanadora, this.state.tiempo]
       estructura.push(array)
     }
-    clearTimeout(this.cambioID3)
-    this.intervalo3 = this.formula()
-    this.cambioID3 = setTimeout(()=> this.cambio3(), this.intervalo3)
+   
   }
 
   cambio4() {
@@ -895,9 +895,7 @@ class Host extends React.Component {
       let array = [4, this.v4.notaGanadora, this.state.tiempo]
       estructura.push(array)
     }
-    clearTimeout(this.cambioID4)
-    this.intervalo4 = this.formula()
-    this.cambioID4 = setTimeout(()=> this.cambio4(), this.intervalo4)
+  
   }
 
   cambio5() {
@@ -909,9 +907,7 @@ class Host extends React.Component {
       let array = [5, this.v5.notaGanadora, this.state.tiempo]
       estructura.push(array)
     }
-    clearTimeout(this.cambioID5)
-    this.intervalo5 = this.formula()
-    this.cambioID5 = setTimeout(()=> this.cambio5(), this.intervalo5)
+   
   }
 
   cambio6() {
@@ -923,9 +919,7 @@ class Host extends React.Component {
       let array = [6, this.v6.notaGanadora, this.state.tiempo]
       estructura.push(array)
     }
-    clearTimeout(this.cambioID6)
-    this.intervalo6 = this.formula()
-    this.cambioID6 = setTimeout(()=> this.cambio6(), this.intervalo6)
+   
   }
 
   botonAudio(){
