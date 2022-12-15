@@ -12,7 +12,7 @@ const { createServer } = require("http");
 const { Server } = require("socket.io");
 const { on } = require('events');
 const PORT = process.env.PORT || 5000
-var throttle = require("lodash/throttle");
+
 
 // ruta para servir la build de producción
 app.use(express.static(path.join(__dirname, '../build')))
@@ -260,9 +260,9 @@ io.on("connection", (socket) => {
       console.log("vozmas", jugador, voz, jugavoz, equipo)
       let id = getKeyByValue(usuarios, jugador)
       console.log("id", id)
-      throttle(function (id, voz) {
+
         io.to(id).emit("vozArm", voz)
-      }, 100)
+      
       
       if (equipo === "caos") {
         socket.to(idCapOrden).emit("enemigos", voz, jugavoz)
@@ -274,9 +274,9 @@ io.on("connection", (socket) => {
     socket.on("vozmenos", (jugador, voz, jugavoz, equipo)=>{
       console.log("vozcambio", jugador, voz, jugavoz, equipo)
       let id = getKeyByValue(usuarios, jugador)
-      throttle(function (id, voz) {
+    
         io.to(id).emit("vozArm", voz)
-      }, 100)
+      
       if (equipo === "caos") {
         socket.to(idCapOrden).emit("enemigos", voz, jugavoz)
       } 
