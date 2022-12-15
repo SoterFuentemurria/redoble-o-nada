@@ -52,9 +52,6 @@ function getKeyByValue(object, value) {
   return Object.keys(object).find(key => object[key] === value);
 }
 
-function vozArm(id, voz) {
-  io.to(id).emit("vozArm", voz)
-}
 // Cuando se conecta un jugador 
 io.on("connection", (socket) => {
   //variables que se establecen en conexión

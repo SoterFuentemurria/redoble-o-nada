@@ -531,6 +531,7 @@ class Combatiente extends React.Component {
 
   componentDidMount() {
     socket.on("vozArm", (arg)=> {
+      console.log("vozArm")
       this.setState({voz: arg});
       if (arg === 0) {
         this.setState({mensaje: "Estás en la reserva"}) 
@@ -712,6 +713,7 @@ class Host extends React.Component {
     })
 
     socket.on("pNota", (voz, nota, usuario, equipo) => {
+      
       let n = "v" + voz
       console.log("pNota", voz, nota, usuario, equipo)
       let index
@@ -852,6 +854,7 @@ class Host extends React.Component {
     
     this.mecanismoCambio(1)
     if (this.v1.cambio === 1) {
+      console.log("cambio1")
       this.osc1.frequency.rampTo(this.v1.notaGanadora,Math.random()* 10)
       this.osc1.volume.rampTo(-18, Math.random()* 10 )
       let array = [1, this.v1.notaGanadora, this.state.tiempo]
