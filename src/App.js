@@ -614,6 +614,7 @@ class Host extends React.Component {
     this.puntosGanar = 10
     this.inicio = new Date()
     this.hora = Math.round((Date.now() - this.inicio)/1000)
+    this.tick = this.tick.bind(this)
     this.state = {tiempo: this.hora, puntosOrden: 0, puntosCaos: 0}
     this.cambio1 = this.cambio1.bind(this)
     this.cambio2 = this.cambio2.bind(this)
@@ -840,7 +841,7 @@ class Host extends React.Component {
 
    
 
-    throttle(function (voz, n) {socket.emit("cambiarNota", voz, this[n].notaGanadora)}, 1000)
+    socket.emit("cambiarNota", voz, this[n].notaGanadora)
     let notaG = this[n].notaGanadora
     let cambioNota
     if (notaInicial !== notaG) {
@@ -851,10 +852,10 @@ class Host extends React.Component {
   }
 
   cambio1() {
-    
+    console.log("cambio1")
     this.mecanismoCambio(1)
     if (this.v1.cambio === 1) {
-      console.log("cambio1")
+      
       this.osc1.frequency.rampTo(this.v1.notaGanadora,Math.random()* 10)
       this.osc1.volume.rampTo(-18, Math.random()* 10 )
       let array = [1, this.v1.notaGanadora, this.state.tiempo]
