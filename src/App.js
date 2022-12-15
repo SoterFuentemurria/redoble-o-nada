@@ -338,13 +338,13 @@ class Capitan extends React.Component{
   // funciones para cargar de forma condicional los botones de más y menos
   menosInvisible(i) {
     if (this["voz" + i].length > 0) {
-      return (<button id = "botonMenos" onClick={throttle(this.handleMenos.bind(this,i), 100)}>-</button>)
+      return (<button id = "botonMenos" onClick={this.handleMenos.bind(this,i)}>-</button>)
     }
     else {return <button id = "botonInvisible">-</button>}
   }
   masInvisible(i) {
     if (this.reserva.length > 0) {
-      return (<button id = "botonMas" onClick={throttle(this.handleMas.bind(this, i), 100)}>+</button>)
+      return (<button id = "botonMas" onClick={this.handleMas.bind(this, i)}>+</button>)
     }
     else {return <button id = "botonInvisible">+</button>}
   }
@@ -598,7 +598,7 @@ class Combatiente extends React.Component {
             Propón una nota 
           <input type= "text" id= "inputPropuesta" value={this.state.value} onChange={this.handleChange}></input>
           </label>
-          <button type = "button" id = "botonPropuesta" onClick={throttle(this.handleSubmit, 100)} >Enviar!</button> 
+          <button type = "button" id = "botonPropuesta" onClick={this.handleSubmit} >Enviar!</button> 
         </div></div>
       </div>
     )
